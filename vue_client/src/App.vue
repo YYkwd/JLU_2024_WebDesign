@@ -6,9 +6,10 @@
   <div class="common-layout">
     <el-container class="base-layout">
       <el-header class="header-layout">
-        <el-row>
-          <el-col :span="6" >
+        <el-row >
+          <el-col :span="6" class="col-center">
             <img src="./assets/logo.jpg" alt="logo" id="logo" type="logo" height="60px" width="60px" />
+            <el-text font-size="50px" >校园帮</el-text>
           </el-col>
           <el-col :span="6">
             second
@@ -48,5 +49,8 @@
   padding: 0px;
   background-color: #c6e2ff;
 }
-
+.col-center{
+  display: flex;
+  align-items: center;
+}
 </style>
