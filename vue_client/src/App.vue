@@ -1,6 +1,5 @@
-<script setup lang="js">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script setup lang="ts">
+
 </script>
 
 <template>
@@ -30,17 +29,23 @@ import TheWelcome from './components/TheWelcome.vue'
 .common-layout{
   height: 100%;
   width: 100%;
+  margin: 0px;
+  padding: 0px;
   background-color: red;
 }
 
 .base-layout{
   height: 100%;
   width: 100%;
+  margin: 0px;
+  padding: 0px;
   background-color: black;
 }
 .header-layout{
   height: 60px;
   width:100%;
+  margin: 0px;
+  padding: 0px;
   background-color: #c6e2ff;
 }
 
