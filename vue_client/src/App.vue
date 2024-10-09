@@ -1,47 +1,47 @@
-<script setup lang="ts">
+<script setup lang="js">
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.jpg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="common-layout">
+    <el-container class="base-layout">
+      <el-header class="header-layout">
+        <el-row>
+          <el-col :span="6" >
+            <img src="./assets/logo.jpg" alt="logo" id="logo" type="logo" height="60px" width="60px" />
+          </el-col>
+          <el-col :span="6">
+            second
+          </el-col>
+          <el-col :span="6">
+            third
+          </el-col>
+          <el-col :span="6">
+            forth
+          </el-col>
+        </el-row>
+      </el-header>
+    </el-container>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.common-layout{
+  height: 100%;
+  width: 100%;
+  background-color: red;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.base-layout{
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
+.header-layout{
+  height: 60px;
+  width:100%;
+  background-color: #c6e2ff;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
