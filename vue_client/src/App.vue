@@ -18,7 +18,7 @@ export default {
         };
         },
     methods: { 
-      goToAdminsterPage(){
+      goToAdministerPage(){
         this.$router.push('/Adminster')
       }
     }
@@ -36,7 +36,7 @@ export default {
           <el-col :span="12" class="col-center-center">
           </el-col>
           <el-col :span="2" class="col-center-center">
-            <el-button type="primary" plain @click="goToAdminsterPage">用户登录</el-button>
+            <el-button type="primary" plain @click="goToAdministerPage">用户登录</el-button>
           </el-col>
           <el-col :span="2" class="col-center-center">
             <el-button type="primary" plain>管理员登录</el-button>

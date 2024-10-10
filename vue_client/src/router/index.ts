@@ -7,7 +7,7 @@ const router = createRouter({
         {
             path:'/Adminster/:id', //管理员访问路径
             name:'Adminster',
-            component: defineAsyncComponent(() => import('../components/Adminster.vue'))
+            component: defineAsyncComponent(() => import('../components/Administer.vue'))
         },
     ]
 })
