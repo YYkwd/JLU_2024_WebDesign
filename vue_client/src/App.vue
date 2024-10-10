@@ -20,7 +20,6 @@ export default {
     }
   }
 </script>
-
 <template>
   <div class="common-layout">
     <el-container class="base-layout">
