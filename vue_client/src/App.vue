@@ -3,6 +3,24 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 </script>
 
+<script lang="ts">
+export default {
+    name: 'index',
+    data(){
+        return {
+            imgList: [
+                {id:0,idView:new URL('./assets/safe.jpg',import.meta.url).href,name:'安全'},
+                {id:1,idView:new URL('./assets/convenience.jpg',import.meta.url).href,name:'便捷'},
+                {id:2,idView:new URL('./assets/timely.jpg',import.meta.url).href,name:'及时'},
+                {id:3,idView:new URL('./assets/reliable.jpg',import.meta.url).href,name:'可靠'}            
+            ]
+        };
+        },
+    methods: { 
+    }
+  }
+</script>
+
 <template>
   <div class="common-layout">
     <el-container class="base-layout">
@@ -26,10 +44,13 @@ import 'element-plus/dist/index.css'
         </el-row>
       </el-header>
       <el-body class="body-layout">
-        
-      </el-body>
-      <el-body class="body-layout">
-        
+        <el-carousel class="carousel-center">
+        <el-carousel-item v-for="item in imgList" :key="item.id">
+          <img :src="item.idView" height="90%" width="30%">
+          <br>
+          <el-text font-size="30px" font-weight="bold">{{item.name}}</el-text>
+        </el-carousel-item>
+        </el-carousel>
       </el-body>
       <el-footer class="footer-layout">
         <el-row style="height: 100%;">
@@ -44,6 +65,8 @@ import 'element-plus/dist/index.css'
     </el-container>
   </div>
 </template>
+
+
 
 <style scoped>
 .common-layout{
@@ -73,6 +96,8 @@ import 'element-plus/dist/index.css'
   flex-grow: 1;
   margin: 0px;
   padding: 0px;
+  align-items: center;
+  justify-content: center;
   background-color: skyblue
 }
 .footer-layout{
@@ -92,4 +117,10 @@ import 'element-plus/dist/index.css'
   justify-content: center;
   background-color: #d9ecff;
 }
+.carousel-center
+{
+  height: 100%;
+  text-align: center;
+}
+
 </style>
