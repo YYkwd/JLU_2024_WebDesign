@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import { RouterLink,RouterView } from 'vue-router';
 </script>
 
 <script lang="ts">
@@ -10,7 +9,7 @@ export default {
     data(){
         return {
             imgList: [
-                {id:0,idView:new URL('./assets/safe.jpg',import.meta.url).href,name:'安全'},
+                {id:0,idView:new URL('./assets/logo.jpg',import.meta.url).href,name:'安全'},
                 {id:1,idView:new URL('./assets/convenience.jpg',import.meta.url).href,name:'便捷'},
                 {id:2,idView:new URL('./assets/timely.jpg',import.meta.url).href,name:'及时'},
                 {id:3,idView:new URL('./assets/reliable.jpg',import.meta.url).href,name:'可靠'}            
@@ -18,9 +17,6 @@ export default {
         };
         },
     methods: { 
-      goToAdminsterPage(){
-        this.$router.push('/Adminster')
-      }
     }
   }
 </script>
@@ -37,7 +33,7 @@ export default {
           <el-col :span="12" class="col-center-center">
           </el-col>
           <el-col :span="2" class="col-center-center">
-            <el-button type="primary" plain @click="goToAdminsterPage">用户登录</el-button>
+            <el-button type="primary" plain>用户登录</el-button>
           </el-col>
           <el-col :span="2" class="col-center-center">
             <el-button type="primary" plain>管理员登录</el-button>
@@ -47,6 +43,17 @@ export default {
           </el-col>
         </el-row>
       </el-header>
+      <el-container>
+        <el-aside class="aside-layout">
+          <el-menu>
+            <el-menu-item index="1">首页</el-menu-item>
+            <el-menu-item index="2">公告</el-menu-item>
+            <el-menu-item index="3">活动</el-menu-item>
+            <el-menu-item index="4">失物招领</el-menu-item>
+           <el-menu-item index="5">失物招领</el-menu-item>
+          </el-menu>
+        </el-aside>
+      </el-container>
       <el-body class="body-layout">
         <el-carousel class="carousel-center">
         <el-carousel-item v-for="item in imgList" :key="item.id">
