@@ -8,6 +8,7 @@ import {
   Location,
   Setting,
 } from '@element-plus/icons-vue'
+import router from '@/router';
 </script>
 
 <script lang="ts">
@@ -26,6 +27,10 @@ export default {
     methods: { 
       goToAppPage(){
         this.$router.push('/')
+      },
+      goToUsers()
+      {
+        this.$router.push('/Administer/Users')
       }
     }
   }
@@ -51,46 +56,27 @@ export default {
           </el-col>
         </el-row>
       </el-header>
-      <el-conttainer class="body-layout">
-        <el-aside class="aside-layout">
+      <el-container class="body-layout">
+      <el-aside class="aside-layout">
         <el-menu
           default-active="2"
           class="menu-vertical-demo"
+          :router="true"
         >
         <el-sub-menu index="1">
           <template #title>
             <el-icon><location /></el-icon>
-            <span>Navigator One</span>
+            <span>用户和骑手管理</span>
           </template>
-          <el-menu-item-group title="Group One">
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
-          </el-menu-item-group>
-          <el-sub-menu index="1-4">
-            <template #title>item four</template>
-            <el-menu-item index="1-4-1">item one</el-menu-item>
-          </el-sub-menu>
+          <el-menu-item index="1-1" @click="goToUsers()">用户</el-menu-item>
+          <el-menu-item index="1-2">骑手</el-menu-item>
         </el-sub-menu>
-        <el-menu-item index="2">
-          <el-icon><icon-menu /></el-icon>
-          <span>Navigator Two</span>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <el-icon><document /></el-icon>
-          <span>Navigator Three</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <el-icon><setting /></el-icon>
-          <span>Navigator Four</span>
-        </el-menu-item>
       </el-menu>
-        </el-aside>
-        <router-view class="router-view-layout">
-        </router-view>
-      </el-conttainer>
+      </el-aside>
+      <el-main class="router-view-layout">
+        <router-view />
+      </el-main>
+      </el-container>
       <el-footer class="footer-layout">
         <el-row style="height: 100%;">
           <el-col :span="12" class="col-center-center">
@@ -151,7 +137,7 @@ export default {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  background-color: black;
+  background-color: white;
 }
 .footer-layout{
   width:100%;
