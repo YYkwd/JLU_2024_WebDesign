@@ -2,13 +2,7 @@
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { RouterLink,RouterView } from 'vue-router';
-import {
-  Document,
-  Menu as IconMenu,
-  Location,
-  Setting,
-} from '@element-plus/icons-vue'
-import router from '@/router';
+
 </script>
 
 <script lang="ts">
@@ -17,27 +11,22 @@ export default {
     data(){
         return {
             imgList: [
-                {id:0,idView:new URL('./assets/safe.jpg',import.meta.url).href,name:'安全'},
-                {id:1,idView:new URL('./assets/convenience.jpg',import.meta.url).href,name:'便捷'},
-                {id:2,idView:new URL('./assets/timely.jpg',import.meta.url).href,name:'及时'},
-                {id:3,idView:new URL('./assets/reliable.jpg',import.meta.url).href,name:'可靠'}            
+                {id:0,idView:new URL('../assets/safe.jpg',import.meta.url).href,name:'安全'},
+                {id:1,idView:new URL('../assets/convenience.jpg',import.meta.url).href,name:'便捷'},
+                {id:2,idView:new URL('../assets/timely.jpg',import.meta.url).href,name:'及时'},
+                {id:3,idView:new URL('../assets/reliable.jpg',import.meta.url).href,name:'可靠'}            
             ]
         };
         },
     methods: { 
-      goToAppPage(){
-        this.$router.push('/')
-      },
-      goToUsers()
-      {
-        this.$router.push('/Administer/Users')
+      goToAdministerPage(){
+        this.$router.push('/Administer')
       }
     }
   }
 </script>
-
 <template>
-  <div class="common-layout">
+    <div class="common-layout">
     <el-container class="base-layout">
       <el-header class="header-layout">
         <el-row >
@@ -48,35 +37,26 @@ export default {
           <el-col :span="12" class="col-center-center">
           </el-col>
           <el-col :span="2" class="col-center-center">
+            <el-button type="primary" plain>用户登录</el-button>
+
           </el-col>
           <el-col :span="2" class="col-center-center">
+            <el-button type="primary" plain  @click="goToAdministerPage()">管理员登录</el-button>
           </el-col>
           <el-col :span="2" class="col-center-center">
-            <el-button type="primary" plain @click="goToAppPage()">退出登录</el-button>
+            <el-button type="primary" plain>用户注册</el-button>
           </el-col>
         </el-row>
       </el-header>
-      <el-container class="body-layout">
-      <el-aside class="aside-layout">
-        <el-menu
-          default-active="2"
-          class="menu-vertical-demo"
-          :router="true"
-        >
-        <el-sub-menu index="1">
-          <template #title>
-            <el-icon><location /></el-icon>
-            <span>用户和骑手管理</span>
-          </template>
-          <el-menu-item index="1-1" @click="goToUsers()">用户</el-menu-item>
-          <el-menu-item index="1-2">骑手</el-menu-item>
-        </el-sub-menu>
-      </el-menu>
-      </el-aside>
-      <el-main class="router-view-layout">
-        <router-view />
-      </el-main>
-      </el-container>
+      <el-body class="body-layout">
+        <el-carousel class="carousel-center">
+        <el-carousel-item v-for="item in imgList" :key="item.id">
+          <img :src="item.idView" height="90%" width="30%">
+          <br>
+          <el-text font-size="30px" font-weight="bold">{{item.name}}</el-text>
+        </el-carousel-item>
+        </el-carousel>
+      </el-body>
       <el-footer class="footer-layout">
         <el-row style="height: 100%;">
           <el-col :span="12" class="col-center-center">
@@ -99,7 +79,7 @@ export default {
   width: 100%;
   margin: 0px;
   padding: 0px;
-  background-color: red;
+  /*background-color: red;*/
 }
 
 .base-layout{
@@ -125,20 +105,6 @@ export default {
   justify-content: center;
   background-color: skyblue
 }
-.aside-layout{
-  width: 200px;
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-  background-color: red;
-}
-.router-view-layout{
-  width: 100%;
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-  background-color: white;
-}
 .footer-layout{
   width:100%;
   margin: 0px;
@@ -161,9 +127,5 @@ export default {
   height: 100%;
   text-align: center;
 }
-.menu-vertical-demo
-{
-  width: 200px;
-  height: 100%;
-}
+
 </style>
