@@ -9,28 +9,38 @@ const router = createRouter({
             name:'Administer',
             component: () => import('../components/Administer.vue')
             ,
-            /*children:[
+            children:[
                 {
-                    path:'/Administer/GoodsForSale', //管理员访问路径
+                    path:'GoodsForSale', //管理员访问路径
                     name:'AdministerGoodsForSale',
                     component: () => import('../components/AdministerGoodsForSale.vue')
                 },
                 {
-                    path:'/Administer/Diliverymen', //管理员访问路径
+                    path:'Diliverymen', //管理员访问路径
                     name:'AdministerDiliverymen',
                     component: () => import('../components/AdministerDiliverymen.vue')
                 },
                 {
-                    path:'/Administer/Users', //管理员访问路径
+                    path:'Users', //管理员访问路径
                     name:'AdministerUsers',
                     component: () => import('../components/AdministerUsers.vue')
                 },
                 {
-                    path:'/Administer/Diliverymen', //管理员访问路径
-                    name:'AdministerGoods',
-                    component: () => import('../components/AdministerDiliverymen.vue')
+                    path:'Complaint', //管理员访问路径
+                    name:'AdministerComplaint',
+                    component: () => import('../components/AdministerComplaint.vue')
                 },
-            ]*/
+                {
+                    path:'Exchange', //管理员访问路径
+                    name:'AdministerExchange',
+                    component: () => import('../components/AdministerExchange.vue')
+                },
+                {
+                    path:'InfoChange', //管理员访问路径
+                    name:'AdministerInfoChange',
+                    component: () => import('../components/AdministerInfoChange.vue')
+                },
+            ]
         },
         {
             path:'/', 
