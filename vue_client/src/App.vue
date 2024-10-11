@@ -2,6 +2,7 @@
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { RouterLink,RouterView } from 'vue-router';
+
 </script>
 
 <script lang="ts">
@@ -19,12 +20,13 @@ export default {
         },
     methods: { 
       goToAdministerPage(){
-        this.$router.push('/Adminster')
+        this.$router.push('/Administer')
       }
     }
   }
 </script>
 <template>
+  <router-view />
   <div class="common-layout">
     <el-container class="base-layout">
       <el-header class="header-layout">
@@ -36,7 +38,8 @@ export default {
           <el-col :span="12" class="col-center-center">
           </el-col>
           <el-col :span="2" class="col-center-center">
-            <el-button type="primary" plain @click="goToAdministerPage">用户登录</el-button>
+            <el-button type="primary" plain @click="goToAdministerPage()">用户登录</el-button>
+
           </el-col>
           <el-col :span="2" class="col-center-center">
             <el-button type="primary" plain>管理员登录</el-button>
