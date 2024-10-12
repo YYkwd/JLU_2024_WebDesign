@@ -3,10 +3,22 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { RouterLink,RouterView } from 'vue-router';
 import {
+  Avatar,
+  Bell,
+  Box,
   Document,
+  DocumentChecked,
+  GoodsFilled,
   Menu as IconMenu,
+  List,
   Location,
+  Phone,
+  PhoneFilled,
   Setting,
+  ShoppingCart,
+  ShoppingCartFull,
+  UserFilled,
+  Van,
 } from '@element-plus/icons-vue'
 import router from '@/router';
 </script>
@@ -31,6 +43,26 @@ export default {
       goToUsers()
       {
         this.$router.push('/Administer/Users')
+      },
+      goToDeliverymen()
+      {
+        this.$router.push('/Administer/Deliverymen')
+      },
+      goToGoodsForSalePage()
+      {
+        this.$router.push('/Administer/GoodsForSale')
+      },
+      goToGoodsComplaintPage()
+      {
+        this.$router.push('/Administer/GoodsComplaint')
+      },
+      goToDeliverymenComplaintPage()
+      {
+        this.$router.push('/Administer/DeliverymenComplaint')
+      },
+      goToDocumentsPage()
+      {
+        this.$router.push('/Administer/Documents')
       }
     }
   }
@@ -65,12 +97,40 @@ export default {
         >
         <el-sub-menu index="1">
           <template #title>
-            <el-icon><location /></el-icon>
+            <el-icon><UserFilled /></el-icon>
             <span>用户和骑手管理</span>
           </template>
-          <el-menu-item index="1-1" @click="goToUsers()">用户</el-menu-item>
-          <el-menu-item index="1-2">骑手</el-menu-item>
+          <el-menu-item index="1-1" @click="goToUsers()">
+            <el-icon><Avatar /></el-icon>
+            <span>用户</span>
+          </el-menu-item>
+          <el-menu-item index="1-2" @click="goToDeliverymen()">
+            <el-icon><Avatar /></el-icon>
+            <span>骑手</span>
+          </el-menu-item>
         </el-sub-menu>
+        <el-menu-item index="2" @click="goToGoodsForSalePage()">
+          <el-icon><GoodsFilled /></el-icon>
+          <span>待售商品管理</span>
+        </el-menu-item>
+        <el-sub-menu index="3">
+          <template #title>
+            <el-icon><PhoneFilled /></el-icon>
+            <span>用户投诉管理</span>
+          </template>
+          <el-menu-item index="3-1" @click="goToGoodsComplaintPage()">
+            <el-icon><Box /></el-icon>
+            <span>商品投诉</span>
+          </el-menu-item>
+          <el-menu-item index="3-2" @click="goToDeliverymenComplaintPage()">
+            <el-icon><Van /></el-icon>
+            <span>骑手投诉</span>
+          </el-menu-item>
+        </el-sub-menu>
+        <el-menu-item index="4" @click="goToDocumentsPage()">
+          <el-icon><List /></el-icon>
+          <span>订单信息管理</span>
+        </el-menu-item>
       </el-menu>
       </el-aside>
       <el-main class="router-view-layout">
