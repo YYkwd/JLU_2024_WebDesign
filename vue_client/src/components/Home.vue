@@ -21,7 +21,14 @@ export default {
     methods: { 
       goToAdministerPage(){
         this.$router.push('/Administer')
+      },
+      gotToLoginPage(){
+        this.$router.push('/login')
+      },
+      goToRegisterPage(){
+        this.$router.push('/register')
       }
+
     }
   }
 </script>
@@ -37,14 +44,14 @@ export default {
           <el-col :span="12" class="col-center-center">
           </el-col>
           <el-col :span="2" class="col-center-center">
-            <el-button type="primary" plain>用户登录</el-button>
+            <el-button type="primary" plain  @click = "gotToLoginPage()"> 用户登录</el-button>
 
           </el-col>
           <el-col :span="2" class="col-center-center">
             <el-button type="primary" plain  @click="goToAdministerPage()">管理员登录</el-button>
           </el-col>
           <el-col :span="2" class="col-center-center">
-            <el-button type="primary" plain>用户注册</el-button>
+            <el-button type="primary" plain @click = "goToRegisterPage()" >用户注册</el-button>
           </el-col>
         </el-row>
       </el-header>

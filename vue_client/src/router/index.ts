@@ -41,12 +41,28 @@ const router = createRouter({
                     component: () => import('../components/AdministerInfoChange.vue')
                 },
             ]
+            
         },
+        //登录界面
+        {
+            path: '/login',
+            name: 'Login',
+            component: () => import('../components/views/Login.vue'), // 动态导入 Login 组件
+          },
+          //注册界面
+          {
+            path: '/register',
+            name: 'Register',
+            component: () => import('../components/views/Register.vue'), // 动态导入 Register 组件
+          },
         {
             path:'/', 
             name:'Home',
             component: () => import('../components/Home.vue')
         },
+
+        
+
     ],
 })
 
