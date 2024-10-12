@@ -16,9 +16,9 @@ const router = createRouter({
                     component: () => import('../components/AdministerGoodsForSale.vue')
                 },
                 {
-                    path:'Diliverymen', //管理员访问路径
-                    name:'AdministerDiliverymen',
-                    component: () => import('../components/AdministerDiliverymen.vue')
+                    path:'Deliverymen', //管理员访问路径
+                    name:'AdministerDeliverymen',
+                    component: () => import('../components/AdministerDeliverymen.vue')
                 },
                 {
                     path:'Users', //管理员访问路径
@@ -26,14 +26,19 @@ const router = createRouter({
                     component: () => import('../components/AdministerUsers.vue')
                 },
                 {
-                    path:'Complaint', //管理员访问路径
-                    name:'AdministerComplaint',
-                    component: () => import('../components/AdministerComplaint.vue')
+                    path:'GoodsComplaint', //管理员访问路径
+                    name:'AdministerGoodsComplaint',
+                    component: () => import('../components/AdministerGoodsComplaint.vue')
                 },
                 {
-                    path:'Exchange', //管理员访问路径
-                    name:'AdministerExchange',
-                    component: () => import('../components/AdministerExchange.vue')
+                    path:'DeliverymenComplaint', //管理员访问路径
+                    name:'AdministerDeliverymenComplaint',
+                    component: () => import('../components/AdministerDeliverymenComplaint.vue')
+                },
+                {
+                    path:'Documents', //管理员访问路径
+                    name:'AdministerDocuments',
+                    component: () => import('../components/AdministerDocuments.vue')
                 },
                 {
                     path:'InfoChange', //管理员访问路径
