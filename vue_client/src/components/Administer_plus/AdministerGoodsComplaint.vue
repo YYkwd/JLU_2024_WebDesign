@@ -11,6 +11,19 @@ const goodscomplaint = ref(
   ]
 )
 
+interface goodscomplaint{
+    id:number,
+    comment_id:number,
+    type: number,
+    status:number,
+    degree:number,
+    goods_id:number,
+    users_id:number,
+    create_time:string,
+    update_time:string,
+    is_delete:number
+}
+
 function Agreement(index : any){
   goodscomplaint.value[index].complaintstatus='pass'
 }

@@ -63,6 +63,10 @@ export default {
       goToDocumentsPage()
       {
         this.$router.push('/Administer/Documents')
+      },
+      goToSellerComplaintPage()
+      {
+        this.$router.push('/Administer/SellerComplaint')
       }
     }
   }
@@ -116,15 +120,19 @@ export default {
         <el-sub-menu index="3">
           <template #title>
             <el-icon><PhoneFilled /></el-icon>
-            <span>用户投诉管理</span>
+            <span>用户评价管理</span>
           </template>
           <el-menu-item index="3-1" @click="goToGoodsComplaintPage()">
             <el-icon><Box /></el-icon>
-            <span>商品投诉</span>
+            <span>商品评价</span>
           </el-menu-item>
           <el-menu-item index="3-2" @click="goToDeliverymenComplaintPage()">
             <el-icon><Van /></el-icon>
-            <span>骑手投诉</span>
+            <span>骑手评价</span>
+          </el-menu-item>
+          <el-menu-item index="3-3" @click="goToSellerComplaintPage()">
+            <el-icon><Document /></el-icon>
+            <span>商家评价</span>
           </el-menu-item>
         </el-sub-menu>
         <el-menu-item index="4" @click="goToDocumentsPage()">

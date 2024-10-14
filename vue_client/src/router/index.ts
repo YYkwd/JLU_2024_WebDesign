@@ -36,6 +36,11 @@ const router = createRouter({
                     component: () => import('../components/Administer_plus/AdministerDeliverymenComplaint.vue')
                 },
                 {
+                    path: 'SellerComplaint', //管理员访问路径
+                    name: 'AdministerSellerComplaint',
+                    component: () => import('../components/Administer_plus/AdministerSellerComplaint.vue')
+                },
+                {
                     path: 'Documents', //管理员访问路径
                     name: 'AdministerDocuments',
                     component: () => import('../components/Administer_plus/AdministerDocuments.vue')

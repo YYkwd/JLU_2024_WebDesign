@@ -9,6 +9,18 @@ const deliverymen = ref([
   {id:2,Name:'李四',email:'lisi@163.com',phone:'12345678901',address:'China',delivery_count:10,delivery_complaint_count:2,status:'normal'},
  ])
  
+interface delliveryman{
+  id: number,
+  comment_account: number,
+  bad_comment_account: number,
+  delivery_acount: number,
+  status: number,
+  telephone: string,
+  name: string,
+  create_time: string,
+  update_time: string
+}
+ 
  function changeUserToNormal(index : any){
       deliverymen.value[index].status = 'normal'
     }
