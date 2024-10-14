@@ -95,25 +95,33 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       console.log('登录成功！');
-      console.log('选中的登录类型:', ruleForm.location); // 输出用户选择的登录类型
-      const message = ruleForm.location === '骑手' 
-        ? '骑手登录成功' 
-        : '用户登录成功';
+      const userEmail = ruleForm.email; // 获取用户的邮箱或账号
+      const locationType = ruleForm.location;
+
+      let redirectPath = '';
+
+      if (locationType === '骑手') {
+        redirectPath = '/deliver_menu'; // 骑手登录后跳转的路径
+      } else if (locationType === '用户') {
+        redirectPath = '/user_menu'; // 用户登录后跳转的路径
+      }
+
       ElMessage({
-        message: message,
-        type: 'success', // 消息类型为成功
-        duration: 3000, // 显示时间为 3 秒
+        message: `${locationType} 登录成功`,
+        type: 'success',
+        duration: 3000
       });
 
-      // 延迟 1 秒后跳转到主页
+      // 路由跳转并携带参数
       setTimeout(() => {
-        router.push('/'); // 跳转到主页
-      }, 1000); // 1000 毫秒 = 1 秒
+        router.push({ path: redirectPath, query: { email: userEmail } }); // 跳转时传递账号
+      }, 1000);
     } else {
       console.log('登录失败！');
     }
   });
 };
+
 
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
