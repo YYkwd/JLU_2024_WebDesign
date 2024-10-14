@@ -21,7 +21,7 @@ interface document{
 const documents = ref<document[]>([])
 
 onMounted(()=>{
-  api.get('admin/orders')
+  api.get('admin/orders',{data: {}})
   .then(res=>{
     console.log(res.data)
     documents.value = res.data
