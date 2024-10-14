@@ -20,14 +20,14 @@ const deliverymen = ref([
 <template>
   <div class="common-layout">
     <el-table :data="deliverymen" style="width: 100%" stripe border="true">
-      <el-table-column prop="id" label="骑手ID" />
-      <el-table-column prop="Name" label="骑手名" />
+      <el-table-column prop="id" label="骑手ID" sortable />
+      <el-table-column prop="Name" label="骑手名" sortable />
       <el-table-column prop="email" label="骑手邮箱" show-overflow-tooltip/>
       <el-table-column prop="phone" label="骑手电话" show-overflow-tooltip/>
       <el-table-column prop="address" label="骑手地址" show-overflow-tooltip/>
-      <el-table-column prop="delivery_count" label="骑手商品邮寄总单数" />
-      <el-table-column prop="delivery_complaint_count" label="用户投诉总数"/>
-      <el-table-column prop="status" label="用户状态" >
+      <el-table-column prop="delivery_count" sortable label="骑手商品邮寄总单数" />
+      <el-table-column prop="delivery_complaint_count" sortable label="用户投诉总数"/>
+      <el-table-column prop="status" sortable label="用户状态" >
         <template #default="scope">
           <span v-if="scope.row.status=='normal'">正常</span>
           <span v-if="scope.row.status=='disabled'">封禁中</span>
