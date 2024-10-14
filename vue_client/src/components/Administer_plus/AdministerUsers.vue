@@ -11,21 +11,22 @@ const users = ref([
 
 interface User{
   id:number;
+  role:number;
   Name:string;
   password:string;
   avatarurl:string;
-  phone:string;
+  telephone:string;
   email:string;
-  address:string;
+  location:string;
   description:string;
   purchase_count:number;
-  purchase_total:number;
+  purchase_account:number;
   sale_count:number;
-  sale_total:number;
+  sale_account:number;
   complaint_count:number;
-  be_complaint_count:number;
+  complainted_count:number;
   exchange_count:number;
-  be_exchanged_count:number;
+  exchanged_count:number;
   status:number;
   create_time:Date;
   update_time:Date;
