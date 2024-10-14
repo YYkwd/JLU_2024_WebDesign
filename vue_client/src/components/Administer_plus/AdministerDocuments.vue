@@ -3,7 +3,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { RouterLink,RouterView } from 'vue-router';
 import { ref,onMounted } from 'vue'
-import axios from 'axios'
+import api from '@/api/request'
 
 interface document{
   id: number,
@@ -21,7 +21,7 @@ interface document{
 const documents = ref<document[]>([])
 
 onMounted(()=>{
-  axios.get('http://localhost:9999',{params:{requst:'get_all_documents'}})
+  api.get('http://localhost:9999/admin/orders')
   .then(res=>{
     console.log(res.data)
     documents.value = res.data
