@@ -11,17 +11,24 @@ export default {
     data(){
         return {
             imgList: [
-                {id:0,idView:new URL('../assets/safe.jpg',import.meta.url).href,name:'安全'},
-                {id:1,idView:new URL('../assets/convenience.jpg',import.meta.url).href,name:'便捷'},
-                {id:2,idView:new URL('../assets/timely.jpg',import.meta.url).href,name:'及时'},
-                {id:3,idView:new URL('../assets/reliable.jpg',import.meta.url).href,name:'可靠'}            
+                {id:0,idView:new URL('../assets/Home/safe.jpg',import.meta.url).href,name:'安全'},
+                {id:1,idView:new URL('../assets/Home/convenience.jpg',import.meta.url).href,name:'便捷'},
+                {id:2,idView:new URL('../assets/Home/timely.jpg',import.meta.url).href,name:'及时'},
+                {id:3,idView:new URL('../assets/Home/reliable.jpg',import.meta.url).href,name:'可靠'}            
             ]
         };
         },
     methods: { 
       goToAdministerPage(){
         this.$router.push('/Administer')
+      },
+      gotToLoginPage(){
+        this.$router.push('/login')
+      },
+      goToRegisterPage(){
+        this.$router.push('/register')
       }
+
     }
   }
 </script>
@@ -37,14 +44,14 @@ export default {
           <el-col :span="12" class="col-center-center">
           </el-col>
           <el-col :span="2" class="col-center-center">
-            <el-button type="primary" plain>用户登录</el-button>
+            <el-button type="primary" plain  @click = "gotToLoginPage()"> 用户登录</el-button>
 
           </el-col>
           <el-col :span="2" class="col-center-center">
             <el-button type="primary" plain  @click="goToAdministerPage()">管理员登录</el-button>
           </el-col>
           <el-col :span="2" class="col-center-center">
-            <el-button type="primary" plain>用户注册</el-button>
+            <el-button type="primary" plain @click = "goToRegisterPage()" >用户注册</el-button>
           </el-col>
         </el-row>
       </el-header>
