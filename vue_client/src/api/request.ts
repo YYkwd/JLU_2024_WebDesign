@@ -13,7 +13,7 @@ const api = axios.create(
 //全局请求拦截
 //表示所有的网络请求都会先走这个方法
 //我们可以在它里面添加一些自定义的内容
-api.interceptors.request.use(
+/*api.interceptors.request.use(
 	function (config) {
 	  console.group('全局请求拦截')
 	  console.log(config)
@@ -39,5 +39,5 @@ api.interceptors.response.use(function (response) {
 	return Promise.reject(err)
   
   }
-
+*/
 export default api;

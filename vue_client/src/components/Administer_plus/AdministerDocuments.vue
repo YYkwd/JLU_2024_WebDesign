@@ -23,8 +23,8 @@ const documents = ref<document[]>([])
 onMounted(()=>{
   api.get('/admin/orders')
   .then(res=>{
-    console.log(res.data)
-    documents.value = res.data
+    console.log(res.data.data)
+    documents.value = res.data.data
   })
   .catch(err=>{
     console.log(err)
