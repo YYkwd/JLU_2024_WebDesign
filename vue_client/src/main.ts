@@ -12,12 +12,12 @@ import {createPinia} from 'pinia' //引入pinia
 const app = createApp(App)
 const pinia = createPinia()
 app.provide('$axios', axios)
-
+app.config.globalProperties.$axios = axios
 
 app.use(ElementPlus)
 app.use(router)
 app.mount('#app')
 app.use(pinia)
 
-app.config.globalProperties.$axios = axios
+
 
