@@ -13,15 +13,15 @@ const goodscomplaint = ref(
 
 interface deliverymencomplaint{
     id:number,
-    comment_id:number,
+    commentId:number,
     type: number,
     status:number,
     degree:number,
-    goods_id:number,
-    users_id:number,
-    create_time:string,
-    update_time:string,
-    is_delete:number
+    goodsId:number,
+    usersId:number,
+    createTime:string,
+    updateTime:string,
+    isDelete:number
 }
 
 interface deliveryman {
@@ -30,12 +30,12 @@ interface deliveryman {
   username: string;
   password: string;
   phone: string;
-  comment_number: number;
-  bad_comment_number: number;
-  delivery_number: number;
-  created_time: Date;
-  updated_time: Date;
-  is_delete: number;
+  commentNumber: number;
+  badCommentNumber: number;
+  deliveryNumber: number;
+  createdTime: Date;
+  updatedTime: Date;
+  isDelete: number;
   status: number;
 }
 

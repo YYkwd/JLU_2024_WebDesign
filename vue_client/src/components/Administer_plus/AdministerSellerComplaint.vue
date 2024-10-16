@@ -5,15 +5,15 @@ import { RouterLink,RouterView } from 'vue-router';
 
 interface sellercomplaint{
     id:number,
-    comment_id:number,
+    commentId:number,
     type: number,
     status:number,
     degree:number,
-    goods_id:number,
-    users_id:number,
-    create_time:string,
-    update_time:string,
-    is_delete:number
+    goodsId:number,
+    usersId:number,
+    createTime:string,
+    updateTime:string,
+    isDelete:number
 }
 
 </script>
