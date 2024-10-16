@@ -30,12 +30,12 @@ interface deliveryman {
   username: string;
   password: string;
   phone: string;
-  comment_number: number;
-  bad_comment_number: number;
-  delivery_number: number;
-  created_time: Date;
-  updated_time: Date;
-  is_delete: number;
+  commentNumber: number;
+  badCommentNumber: number;
+  deliveryNumber: number;
+  createdTime: Date;
+  updatedTime: Date;
+  isDelete: number;
   status: number;
 }
 

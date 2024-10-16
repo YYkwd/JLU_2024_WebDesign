@@ -15,18 +15,18 @@ interface User{
   email:string;
   location:string;
   description:string;
-  purchase_count:number;
-  purchase_account:number;
-  sale_count:number;
-  sale_account:number;
-  complaint_count:number;
-  complainted_count:number;
-  exchange_count:number;
-  exchanged_count:number;
+  purchaseCount:number;
+  purchaseAccount:number;
+  saleCount:number;
+  saleAccount:number;
+  complaintCount:number;
+  complaintedCount:number;
+  exchangeCount:number;
+  exchangedCount:number;
   status:number;
-  create_time:Date;
-  update_time:Date;
-  is_delete:number;
+  createTime:Date;
+  updateTime:Date;
+  isDelete:number;
 }
 
   const users = ref<User[]>([])
@@ -74,14 +74,14 @@ export default {
       <el-table-column prop="telephone" sortable label="用户电话" show-overflow-tooltip></el-table-column>
       <el-table-column prop="location" sortable label="用户地址" show-overflow-tooltip></el-table-column>
       <el-table-column prop="description" sortable label="用户描述" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="purchase_count" sortable label="商品购买总数" />
-      <el-table-column prop="purchase_total" sortable label="商品购买总额"/>
-      <el-table-column prop="sale_count" sortable label="商品出售总数" />
-      <el-table-column prop="sale_total" sortable label="商品出售总额"/>
-      <el-table-column prop="complaint_count" sortable label="用户评论总数"/>
-      <el-table-column prop="complainted_count" sortable label="用户被评论总数"/>
-      <el-table-column prop="exchange_count" sortable label="用户退换货总数"/>
-      <el-table-column prop="exchanged_count" sortable label="用户被退换货总数"/>
+      <el-table-column prop="purchaseCount" sortable label="商品购买总数" />
+      <el-table-column prop="purchaseTotal" sortable label="商品购买总额"/>
+      <el-table-column prop="saleCount" sortable label="商品出售总数" />
+      <el-table-column prop="saleTotal" sortable label="商品出售总额"/>
+      <el-table-column prop="complaintCount" sortable label="用户评论总数"/>
+      <el-table-column prop="complaintedCount" sortable label="用户被评论总数"/>
+      <el-table-column prop="exchangeCount" sortable label="用户退换货总数"/>
+      <el-table-column prop="exchangedCount" sortable label="用户被退换货总数"/>
       <el-table-column prop="status" sortable label="用户状态" >
         <template #default="scope">
           <span v-if="scope.row.status==0 && scope.row.is_delete==0">正常</span>
@@ -89,9 +89,9 @@ export default {
           <span v-if="scope.row.is_delete==1">已注销</span>
         </template>
       </el-table-column>
-      <el-table-column prop="create_time" sortable label="创建时间" width="180"></el-table-column>
-      <el-table-column prop="update_time" sortable label="更新时间" width="180"></el-table-column>
-      <el-table-column prop="is_delete" sortable label="用户是否注销账户" width="180">
+      <el-table-column prop="createTime" sortable label="创建时间" width="180"></el-table-column>
+      <el-table-column prop="updateTime" sortable label="更新时间" width="180"></el-table-column>
+      <el-table-column prop="isDelete" sortable label="用户是否注销账户" width="180">
         <template #default="scope">
           <span v-if="scope.row.status==0">正常</span>
           <span v-if="scope.row.status==1">已注销</span>

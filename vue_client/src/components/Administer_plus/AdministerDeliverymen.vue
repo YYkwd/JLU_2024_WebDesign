@@ -11,14 +11,14 @@ const deliverymen = ref([
  
 interface delliveryman{
   id: number,
-  comment_account: number,
-  bad_comment_account: number,
-  delivery_acount: number,
+  commentAccount: number,
+  badCommentAccount: number,
+  deliveryAcount: number,
   status: number,
   telephone: string,
   name: string,
-  create_time: string,
-  update_time: string
+  createTime: string,
+  updateTime: string
 }
  
  function changeUserToNormal(index : any){

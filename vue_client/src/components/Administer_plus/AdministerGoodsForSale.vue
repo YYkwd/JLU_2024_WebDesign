@@ -14,14 +14,14 @@ interface good {
   name: string,
   photo: string,
   description: string,
-  pre_price: number,
+  prePrice: number,
   price: number,
   amount: number,
-  sell_id: number,
-  create_time: Date,
-  update_time: Date,
+  sellId: number,
+  createTime: Date,
+  updateTime: Date,
   status: string,
-  is_delete: number,
+  isDelete: number,
 }
 
 function Agreement(index : any){
