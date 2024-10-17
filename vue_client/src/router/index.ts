@@ -53,11 +53,17 @@ const router = createRouter({
             ]
 
         },
-        //登录界面
+        //用户登录界面
         {
             path: '/login',
             name: 'Login',
             component: () => import('../components/views/Login.vue'), // 动态导入 Login 组件
+        },
+        //管理员登录界面
+        {
+            path: '/Administerlogin',
+            name: 'Administerlogin',
+            component: () => import('../components/views/Administerlogin.vue'), // 动态导入 Login 组件
         },
         //注册界面
         {

@@ -4,6 +4,9 @@ import 'element-plus/dist/index.css'
 import { RouterLink,RouterView } from 'vue-router';
 import { ref,onMounted } from 'vue'
 import api from '@/api/request'
+//引入sotre 以存储管理员（包含authorization）
+  import {useAdminStore} from '@/store/admin';
+  const  AdminStore = useAdminStore();
 
 interface document{
   id: number,
@@ -20,8 +23,9 @@ interface document{
 
 const documents = ref<document[]>([])
 
+console.log(AdminStore.authorization);
 onMounted(()=>{
-  api.get('/admin/orders')
+  api.get('/admin/orders'  , {headers :{ authorization : AdminStore.authorization }})
   .then(res=>{
     console.log(res.data.data)
     documents.value = res.data.data
