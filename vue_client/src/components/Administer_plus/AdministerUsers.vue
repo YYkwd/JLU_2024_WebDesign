@@ -32,7 +32,7 @@ interface User{
   const users = ref<User[]>([])
 
   onMounted(()=>{
-  api.get('/user/admin/users')
+  api.get('/user/admin/users',{headers:{'Authorization': '1'}})
   .then(res=>{
     console.log(res.data.data)
     users.value = res.data.data
