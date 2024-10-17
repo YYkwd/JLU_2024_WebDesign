@@ -36,22 +36,7 @@ const handleAdd = ()=>{
 
 <template>
   <div class="common-layout">
-    <el-row>
-      <el-col :span="24">
-        <el-card shadow="hover">
-          <div slot="header">
-            <span>商品管理</span>
-          </div>
-          <div>
-            <el-row>
-              <el-col :span="24">
-                <el-button type="primary" @click="handleAdd()">添加商品</el-button>
-              </el-col>
-            </el-row>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+    
   </div>
 </template>
 
@@ -62,6 +47,6 @@ const handleAdd = ()=>{
   width: 100%;
   margin: 0px;
   padding: 0px;
-  background-color: whitesmoke;
+  background-color: brown;
 }
 </style>

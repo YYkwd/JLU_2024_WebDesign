@@ -67,6 +67,10 @@ export default {
       goToSellerComplaintPage()
       {
         this.$router.push('/Administer/SellerComplaint')
+      },
+      goToGoodsPage()
+      {
+        this.$router.push('/Goods')
       }
     }
   }
@@ -138,6 +142,10 @@ export default {
         <el-menu-item index="4" @click="goToDocumentsPage()">
           <el-icon><List /></el-icon>
           <span>订单信息管理</span>
+        </el-menu-item>
+        <el-menu-item index="5" @click="goToGoodsPage()">
+          <el-icon><ShoppingCart /></el-icon>
+          <span>商品管理</span>
         </el-menu-item>
       </el-menu>
       </el-aside>

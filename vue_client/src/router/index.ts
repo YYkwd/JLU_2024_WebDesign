@@ -91,7 +91,6 @@ const router = createRouter({
                         name: 'CountControl',
                         component: () => import('../components/User/UserPage/CountControl.vue')
                     },
-
                 ]
 
         },
@@ -107,7 +106,11 @@ const router = createRouter({
             name: 'Home',
             component: () => import('../components/Home.vue')
         },
-
+        {
+                path: '/Goods',
+                name: 'Goods',
+                component: () => import('../components/Goods/Goods.vue')
+        }
 
 
     ],
