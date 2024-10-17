@@ -3,6 +3,9 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { RouterLink,RouterView } from 'vue-router';
 import  { ref }  from 'vue';
+//引入sotre 以存储管理员（包含authorization）
+import {useAdminStore} from '@/store/admin';
+  const  AdminStore = useAdminStore();
 
 const goods = ref([
   {id:1,name:'商品1',username:'商家1',address:'地址1',phone:'123456789',email:'123456789@qq.com',image:'https://picsum.photos/200/300',category:'类别1',description:'描述1',price:10,status:'onsale',check:'wait'},

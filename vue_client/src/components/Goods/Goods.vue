@@ -4,6 +4,9 @@
     import { RouterLink,RouterView } from 'vue-router';
     import { ref,onMounted } from 'vue'
     import api from '@/api/request'
+    //引入sotre 以存储管理员（包含authorization）
+  import {useAdminStore} from '@/store/admin';
+  const  AdminStore = useAdminStore();
 
 interface good {
   id: number,
@@ -23,8 +26,10 @@ interface good {
 const goods = ref<good[]>([])
 
 onMounted(()=>{
-  api.get('/goods').then(res=>{
+  api.get('/goods',{headers:{'Authorization': AdminStore.authorization}}).then(res=>{
     goods.value = res.data
+  }).catch(err=>{
+    console.log(err)
   })
 })
 
@@ -36,22 +41,7 @@ const handleAdd = ()=>{
 
 <template>
   <div class="common-layout">
-    <el-row>
-      <el-col :span="24">
-        <el-card shadow="hover">
-          <div slot="header">
-            <span>商品管理</span>
-          </div>
-          <div>
-            <el-row>
-              <el-col :span="24">
-                <el-button type="primary" @click="handleAdd()">添加商品</el-button>
-              </el-col>
-            </el-row>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+    
   </div>
 </template>
 
@@ -62,6 +52,6 @@ const handleAdd = ()=>{
   width: 100%;
   margin: 0px;
   padding: 0px;
-  background-color: whitesmoke;
+  background-color: brown;
 }
 </style>
