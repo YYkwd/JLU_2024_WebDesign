@@ -20,7 +20,7 @@ export default {
         },
     methods: { 
       goToAdministerPage(){
-        this.$router.push('/Administer')
+        this.$router.push('/Administerlogin')
       },
       gotToLoginPage(){
         this.$router.push('/login')

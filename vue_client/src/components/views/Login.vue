@@ -21,7 +21,7 @@
           <el-segmented v-model="ruleForm.location" :options="locationOptions" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm(ruleFormRef)">
+          <el-button type="primary" @click="submitLoginForm(ruleFormRef)">
             登录
           </el-button>
           <el-button @click="resetForm(ruleFormRef)">
@@ -40,10 +40,19 @@
 import { reactive, ref } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
 import { useRouter } from 'vue-router';
-import { ElMessage } from 'element-plus'; // 引入 ElMessage
+import { ElMessage } from 'element-plus'; 
+import api from '@/api/request' ;// 导入封装号的axios实例 ， 以应对跨域问题
 
+//引入sotre 以存储普通用户/骑手的全局信息（包含authorization）
+import {useUserStore} from '@/store/user';
+import {useDeliverStore}  from '@/store/deliver' ;
+const  UserStore = useUserStore();
+const  DeliverStore = useDeliverStore();
+
+//console.log(UserStore);  //验证
 const router = useRouter();
 
+//返回到主页
 const goToHome = () => {
   router.push('/');
 }
@@ -90,37 +99,69 @@ const rules = reactive<FormRules<typeof ruleForm>>({
   ],
 });
 
-const submitForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  formEl.validate((valid) => {
+const submitLoginForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return; // 如果表单不存在则返回
+
+  formEl.validate(async (valid) => {
     if (valid) {
-      console.log('登录成功！');
-      const userEmail = ruleForm.email; // 获取用户的邮箱或账号
-      const locationType = ruleForm.location;
+      // 根据选择的用户类型确定请求的 URL 地址
+      const apiUrl = ruleForm.location === '骑手' ? '/deliver/login' : '/user/login';
 
-      let redirectPath = '';
-
-      if (locationType === '骑手') {
-        redirectPath = '/deliver_menu'; // 骑手登录后跳转的路径
-      } else if (locationType === '用户') {
-        redirectPath = '/user_menu'; // 用户登录后跳转的路径
-      }
-
-      ElMessage({
-        message: `${locationType} 登录成功`,
-        type: 'success',
-        duration: 3000
+      try {
+        // 发送 POST 请求，传递邮箱、密码和授权字段
+        const response = await api.post(apiUrl, 
+        {//请求体
+          email: ruleForm.email,
+          password: ruleForm.pass,
+          
+        },
+      {
+        headers : {authorization: '0'} , 
       });
 
-      // 路由跳转并携带参数
-      setTimeout(() => {
-        router.push({ path: redirectPath, query: { email: userEmail } }); // 跳转时传递账号
-      }, 1000);
+        // 从响应数据中解构出状态码、消息和用户信息
+        const { code, msg, data } = response.data;
+
+        console.log('完整响应数据:', response);
+
+        if (code === 200) {
+          // 登录成功，弹出提示信息
+          ElMessage.success('登录成功');
+
+          console.log('登录用户信息:', data); // 打印用户/骑手信息用于调试
+
+          // 根据用户类型，将 authorization 存储到对应的 Store
+          if (ruleForm.location === '骑手') {
+            // 更新骑手 Store
+            DeliverStore.authorization = data;
+          } else {
+            // 更新用户 Store
+            UserStore.authorization = data;
+          }
+
+          // 根据用户类型跳转到不同页面
+          const redirectRoute = ruleForm.location === '骑手' ? '/deliver_menu' : '/user_menu';
+          
+          // 1 秒后跳转到对应页面
+          setTimeout(() => {
+            router.push(redirectRoute); // 跳转到指定路由
+          }, 1000);
+        } else {
+          // 登录失败，弹出错误信息
+          ElMessage.error(msg || '登录失败');
+        }
+      } catch (error) {
+        // 捕获请求错误并弹出错误提示
+        ElMessage.error('登录请求失败，请检查网络或稍后再试');
+      }
     } else {
-      console.log('登录失败！');
+      // 表单验证失败的日志
+      console.log('表单验证失败');
     }
   });
 };
+
+
 
 
 const resetForm = (formEl: FormInstance | undefined) => {

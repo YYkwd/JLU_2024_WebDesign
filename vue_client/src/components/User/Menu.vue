@@ -1,15 +1,40 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import {
-  Avatar,
-  GoodsFilled,
-  Box,
-  PhoneFilled,
-  Van,
-  List,
-  UserFilled,
-} from '@element-plus/icons-vue';
+import { Avatar,GoodsFilled, Box,PhoneFilled,Van,List, UserFilled,} from '@element-plus/icons-vue';
+import { ref,onMounted } from 'vue'
+//引入UserStore(含authorization)
+import {useUserStore} from '@/store/user';
 
+import api from '@/api/request'
+const  UserStore = useUserStore();
+console.log(UserStore.authorization);
+
+interface document{
+  id: number,
+  purchaseId: number,
+  goodsId: number,
+  deliverId: number,
+  totalPrice: number,
+  appealDescription: string,
+  appealPhoto: string,
+  status: number,
+  createTime: string,
+  arriveTime: string
+}
+const documents = ref<document[]>([])
+
+onMounted(()=>{
+  api.get('/user/admin/users'  ,
+ {headers :{ Authorization : UserStore.authorization }})
+  .then(res=>{
+    console.log(res.data.data)
+    //documents.value = res.data.data
+  })
+  .catch(err=>{
+    console.log(err)
+  })
+})
+console.log(UserStore.authorization);
 // 使用 Vue Router 的组合式 API
 const router = useRouter();
 
@@ -36,16 +61,12 @@ const goToGoods = () => {
   router.push('/user_menu/goods')
 };
 
-const goToRecords = () => {
-  router.push('/user_menu/records')
+const goToGoodsSell = () => {
+  router.push('/user_menu/goods_sell')
 };
 
-const goToRecommends = () => {
-  router.push('/user_menu/recommends')
-};
-
-const goToDeliver = () => {
-  router.push('/user_menu/deliver')
+const goToOrder = () => {
+  router.push('/user_menu/order')
 };
 </script>
 
@@ -101,12 +122,12 @@ const goToDeliver = () => {
               <span>在售商品</span>
             </el-menu-item>
             
-            <el-menu-item index="3" @click="goToGoods">
+            <el-menu-item index="3" @click="goToGoodsSell">
               <el-icon><GoodsFilled /></el-icon>
               <span>发布商品</span>
             </el-menu-item>
 
-            <el-menu-item index="4" @click="goToDeliver">
+            <el-menu-item index="4" @click="goToOrder">
               <el-icon><PhoneFilled /></el-icon>
               <span>订单</span>
             </el-menu-item>

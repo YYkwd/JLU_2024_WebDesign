@@ -1,78 +1,113 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { ElMessageBox, ElMessage } from 'element-plus';
+
+// 响应式数据，用于绑定密码输入框
+const currentPassword = ref('');
+const newPassword = ref('');
+const confirmPassword = ref('');
+
+// 修改密码的函数
+const handlePasswordChange = () => {
+  if (newPassword.value !== confirmPassword.value) {
+    ElMessage({
+      message: '两次输入的密码不一致',
+      type: 'error',
+    });
+    return;
+  }
+  // 模拟密码修改请求，可以替换为实际的 API 调用
+  ElMessageBox.confirm(
+    '确认要修改密码吗？',
+    '修改密码',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  ).then(() => {
+    ElMessage({
+      type: 'success',
+      message: '密码修改成功!',
+    });
+  }).catch(() => {
+    ElMessage({
+      type: 'info',
+      message: '已取消修改',
+    });
+  });
+};
+
+// 注销账号的函数
+const handleAccountDelete = () => {
+  ElMessageBox.confirm(
+    '注销账号将无法恢复，确认要继续吗？',
+    '警告',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  ).then(() => {
+    ElMessage({
+      type: 'success',
+      message: '账号已注销',
+    });
+    // 在这里可以调用 API 执行注销操作
+  }).catch(() => {
+    ElMessage({
+      type: 'info',
+      message: '操作已取消',
+    });
+  });
+};
+</script>
+
 <template>
-  <div v-if="loading">加载中...</div>
-  <div v-else>
-    <el-descriptions
-      title="个人信息"
-      direction="vertical"
-      border
-      style="margin-top: 20px; font-size: 18px; width: 80%;"
-    >
-      <el-descriptions-item
-        :rowspan="2"
-        :width="140"
-        label="Photo"
-        align="center"
-      >
-        <el-image
-          style="width: 150px; height: 150px"
-          :src="userInfo.photo"
-        />
-      </el-descriptions-item>
-      <el-descriptions-item label="昵称">{{ userInfo.nickname }}</el-descriptions-item>
-      <el-descriptions-item label="电话">{{ userInfo.phone }}</el-descriptions-item>
-      <el-descriptions-item label="邮箱">{{ userInfo.email }}</el-descriptions-item>
-      <el-descriptions-item label="地址">
-        <el-tag size="large">{{ userInfo.address }}</el-tag> <!-- 修改了 size -->
-      </el-descriptions-item>
-      <el-descriptions-item label="个性签名">
-        {{ userInfo.signature }}
-      </el-descriptions-item>
-    </el-descriptions>
+  <div class="account-control-layout">
+    <el-card class="box-card">
+      <h2>账号管理</h2>
+
+      <!-- 修改密码部分 -->
+      <div class="password-section">
+        <el-form>
+          <el-form-item label="当前密码">
+            <el-input v-model="currentPassword" type="password" placeholder="请输入当前密码" />
+          </el-form-item>
+          <el-form-item label="新密码">
+            <el-input v-model="newPassword" type="password" placeholder="请输入新密码" />
+          </el-form-item>
+          <el-form-item label="确认新密码">
+            <el-input v-model="confirmPassword" type="password" placeholder="请再次输入新密码" />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="handlePasswordChange">修改密码</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+
+      <!-- 账号注销部分 -->
+      <div class="account-delete-section">
+        <el-divider></el-divider>
+        <el-button type="danger" @click="handleAccountDelete">注销账号</el-button>
+      </div>
+    </el-card>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-
-// 创建响应式对象存储用户信息
-const userInfo = ref({
-  photo: '',
-  nickname: '',
-  phone: '',
-  email: '',
-  address: '',
-  signature: ''
-});
-
-// 加载状态
-const loading = ref(true);
-
-onMounted(async () => {
-  try {
-    const response = await axios.get('/api/userinfo');
-    userInfo.value = response.data;
-    console.log("Hello World");
-  } catch (error) {
-    console.error('获取用户信息失败:', error);
-  } finally {
-    loading.value = false; // 加载完成
-  }
-});
-</script>
-
 <style scoped>
-.el-descriptions {
-  font-size: 18px;
+.account-control-layout {
   width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.el-image {
-  width: 150px;
-  height: 150px;
+.password-section {
+  margin-bottom: 20px;
 }
 
-.el-tag {
-  font-size: 16px;
+.account-delete-section {
+  margin-top: 20px;
 }
 </style>
