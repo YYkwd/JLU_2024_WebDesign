@@ -4,6 +4,9 @@
     import { RouterLink,RouterView } from 'vue-router';
     import { ref,onMounted } from 'vue'
     import api from '@/api/request'
+    //引入sotre 以存储管理员（包含authorization）
+  import {useAdminStore} from '@/store/admin';
+  const  AdminStore = useAdminStore();
 
 interface good {
   id: number,
@@ -23,8 +26,10 @@ interface good {
 const goods = ref<good[]>([])
 
 onMounted(()=>{
-  api.get('/goods').then(res=>{
+  api.get('/goods',{headers:{'Authorization': AdminStore.authorization}}).then(res=>{
     goods.value = res.data
+  }).catch(err=>{
+    console.log(err)
   })
 })
 
