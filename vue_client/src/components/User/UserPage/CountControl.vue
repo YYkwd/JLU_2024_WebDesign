@@ -1,113 +1,190 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
-
-// 响应式数据，用于绑定密码输入框
-const currentPassword = ref('');
-const newPassword = ref('');
-const confirmPassword = ref('');
-
-// 修改密码的函数
-const handlePasswordChange = () => {
-  if (newPassword.value !== confirmPassword.value) {
-    ElMessage({
-      message: '两次输入的密码不一致',
-      type: 'error',
-    });
-    return;
-  }
-  // 模拟密码修改请求，可以替换为实际的 API 调用
-  ElMessageBox.confirm(
-    '确认要修改密码吗？',
-    '修改密码',
-    {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning',
-    }
-  ).then(() => {
-    ElMessage({
-      type: 'success',
-      message: '密码修改成功!',
-    });
-  }).catch(() => {
-    ElMessage({
-      type: 'info',
-      message: '已取消修改',
-    });
-  });
-};
-
-// 注销账号的函数
-const handleAccountDelete = () => {
-  ElMessageBox.confirm(
-    '注销账号将无法恢复，确认要继续吗？',
-    '警告',
-    {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning',
-    }
-  ).then(() => {
-    ElMessage({
-      type: 'success',
-      message: '账号已注销',
-    });
-    // 在这里可以调用 API 执行注销操作
-  }).catch(() => {
-    ElMessage({
-      type: 'info',
-      message: '操作已取消',
-    });
-  });
-};
-</script>
-
 <template>
-  <div class="account-control-layout">
-    <el-card class="box-card">
-      <h2>账号管理</h2>
-
-      <!-- 修改密码部分 -->
-      <div class="password-section">
-        <el-form>
-          <el-form-item label="当前密码">
-            <el-input v-model="currentPassword" type="password" placeholder="请输入当前密码" />
-          </el-form-item>
-          <el-form-item label="新密码">
-            <el-input v-model="newPassword" type="password" placeholder="请输入新密码" />
-          </el-form-item>
-          <el-form-item label="确认新密码">
-            <el-input v-model="confirmPassword" type="password" placeholder="请再次输入新密码" />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="handlePasswordChange">修改密码</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-
-      <!-- 账号注销部分 -->
-      <div class="account-delete-section">
-        <el-divider></el-divider>
-        <el-button type="danger" @click="handleAccountDelete">注销账号</el-button>
-      </div>
+  <div class="login-container">
+    <el-card class="login-card">
+      <h2 class="login-title">修改密码</h2>
+      <el-form
+        ref="ruleFormRef"
+        style="width: 100%"
+        :model="ruleForm"
+        status-icon
+        :rules="rules"
+        label-width="auto"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="原始密码" prop="oldPass">
+          <el-input v-model="ruleForm.oldPass" type="password" placeholder="请输入原始密码" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="新创建密码" prop="newPass">
+          <el-input v-model="ruleForm.newPass" type="password" placeholder="请输入新密码" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="确认密码" prop="confirmPass">
+          <el-input v-model="ruleForm.confirmPass" type="password" placeholder="请再次输入新密码" autocomplete="off" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitPasswordForm(ruleFormRef)">
+            确认修改
+          </el-button>
+          <el-button @click="resetForm(ruleFormRef)">
+            重置
+          </el-button>
+        </el-form-item>
+      </el-form>
     </el-card>
   </div>
 </template>
 
+<script lang="ts" setup>
+import { reactive, ref, onMounted } from 'vue';
+import type { FormInstance, FormRules } from 'element-plus';
+import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
+import api from '@/api/request';
+
+// 引入 store 以存储用户全局信息
+import { useUserStore } from '@/store/user';
+const UserStore = useUserStore();
+const router = useRouter();
+
+
+// 用户信息
+const userInfo = ref({
+  name: '',
+  password: '',
+  telephone: '',
+  description: '',
+  email: '',
+  location: '',
+});
+
+//在页面切换挂载时候获取需要的所有该用户数据
+onMounted(async () => {
+  try {
+    // 获取用户数据的API请求
+    const response = await api.post('/user/current', null, {
+      headers: {
+        authorization: UserStore.authorization  // 获取用户的token
+      }
+    });
+
+    const data = response.data.data;
+    userInfo.value = {
+      name: data.name || '无昵称',
+      password: data.password, // 假设后端返回的密码字段是 password
+      telephone: data.telephone || '请填入手机号',
+      description: data.description || '暂无个性签名',
+      email: data.email,
+      location: data.location || '请填入地址',
+    };
+
+  } catch (error) {
+    console.error('获取用户信息失败：', error);
+  }
+});
+
+// 表单的引用和表单数据模型
+const ruleFormRef = ref<FormInstance>();
+const ruleForm = reactive({
+  oldPass: '', // 原始密码
+  newPass: '', // 新创建的密码
+  confirmPass: '', // 确认新密码
+});
+
+// 验证规则
+const validateOldPass = (rule: any, value: any, callback: any) => {
+  if (!value) {
+    callback(new Error('请输入原始密码'));
+  } else if (value !== userInfo.value.password) {
+    callback(new Error('原始密码不正确'));
+  } else {
+    callback();
+  }
+};
+
+const validateNewPass = (rule: any, value: any, callback: any) => {
+  if (!value) {
+    callback(new Error('请输入新密码'));
+  } else if (value.length < 6) {
+    callback(new Error('密码长度不能少于6位'));
+  } else {
+    callback();
+  }
+};
+
+const validateConfirmPass = (rule: any, value: any, callback: any) => {
+  if (value !== ruleForm.newPass) {
+    callback(new Error('两次输入的密码不一致'));
+  } else {
+    callback();
+  }
+};
+
+const rules = reactive<FormRules<typeof ruleForm>>({
+  oldPass: [{ validator: validateOldPass, trigger: 'blur' }],
+  newPass: [{ validator: validateNewPass, trigger: 'blur' }],
+  confirmPass: [{ validator: validateConfirmPass, trigger: 'blur' }],
+});
+
+// 提交修改密码表单
+const submitPasswordForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+
+  formEl.validate(async (valid) => {
+    if (valid) {
+      try {
+        // 发送修改密码的请求
+        const response = await api.put('/user/update', 
+        {
+          name: userInfo.value.name,
+          password: ruleForm.newPass,
+          telephone: userInfo.value.telephone,
+          description: userInfo.value.description,
+          email: userInfo.value.email,
+          location: userInfo.value.location,
+        }, {
+          headers: { authorization: UserStore.authorization },
+        });
+
+        const { code, msg } = response.data;
+
+        if (code === 200) {
+          ElMessage.success('密码修改成功');
+          // 清空表单并跳转
+          formEl.resetFields();
+          userInfo.value.password = ruleForm.newPass;
+          //router.push('/user_menu');
+        } else {
+          ElMessage.error(msg || '修改密码失败');
+        }
+      } catch (error) {
+        ElMessage.error('修改密码请求失败，请检查网络或稍后再试');
+      }
+    } else {
+      console.log('表单验证失败');
+    }
+  });
+};
+
+const resetForm = (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  formEl.resetFields();
+};
+</script>
+
 <style scoped>
-.account-control-layout {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
 }
 
-.password-section {
+.login-card {
+  width: 400px;
+}
+
+.login-title {
+  text-align: center;
   margin-bottom: 20px;
-}
-
-.account-delete-section {
-  margin-top: 20px;
+  font-size: 24px;
 }
 </style>

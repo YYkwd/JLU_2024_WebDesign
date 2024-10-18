@@ -9,22 +9,10 @@ import api from '@/api/request'
 const  UserStore = useUserStore();
 console.log(UserStore.authorization);
 
-interface document{
-  id: number,
-  purchaseId: number,
-  goodsId: number,
-  deliverId: number,
-  totalPrice: number,
-  appealDescription: string,
-  appealPhoto: string,
-  status: number,
-  createTime: string,
-  arriveTime: string
-}
-const documents = ref<document[]>([])
-
+/*
+//目录挂载时候获取数据
 onMounted(()=>{
-  api.get('/user/admin/users'  ,
+  api.post('/user/current'  ,null ,
  {headers :{ Authorization : UserStore.authorization }})
   .then(res=>{
     console.log(res.data.data)
@@ -34,6 +22,7 @@ onMounted(()=>{
     console.log(err)
   })
 })
+  */
 console.log(UserStore.authorization);
 // 使用 Vue Router 的组合式 API
 const router = useRouter();
