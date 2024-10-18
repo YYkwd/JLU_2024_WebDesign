@@ -2,15 +2,16 @@
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { RouterLink,RouterView } from 'vue-router';
-import  { ref }  from 'vue';
+import  { onMounted,ref }  from 'vue';
+import api from '@/api/request'
 //引入sotre 以存储管理员（包含authorization）
 import {useAdminStore} from '@/store/admin';
   const  AdminStore = useAdminStore();
 
-const goods = ref([
-  {id:1,name:'商品1',username:'商家1',address:'地址1',phone:'123456789',email:'123456789@qq.com',image:'https://picsum.photos/200/300',category:'类别1',description:'描述1',price:10,status:'onsale',check:'wait'},
-  {id:2,name:'商品2',username:'商家2',address:'地址2',phone:'123456789',email:'123456789@qq.com',image:'https://picsum.photos/200/300',category:'类别1',description:'描述1',price:10,status:'normal',check:'pass'}
-])
+const origin_goods = ref<good[]>([])
+const goods = ref<good[]>([])
+const good = ref<good>()
+const selected_good = ref<good>()
 
 interface good {
   id: number,
@@ -23,47 +24,87 @@ interface good {
   sellId: number,
   createTime: Date,
   updateTime: Date,
-  status: string,
+  status: number,
   isDelete: number,
 }
 
+onMounted(()=>{
+  api.get('/admin/goods',{headers:{'Authorization': AdminStore.authorization}})
+  .then(res=>{
+    console.log(res.data.data)
+    origin_goods.value = res.data.data
+    goods.value = origin_goods.value
+  })
+  .catch(err=>{
+    console.log(err)
+  })
+})
+
 function Agreement(index : any){
-  goods.value[index].check = 'pass'
+  goods.value[index].status = 1
 }
 
 function Objection(index : any){
-  goods.value[index].check = 'reject'
+  goods.value[index].status = -1
 }
+
+const querySearch = (queryString : any, cb : any)=>{
+      const results = <good[]>[]
+      if(!queryString) //无内容
+    {
+      for(let i = 0; i < origin_goods.value.length; i++){
+        results.push(origin_goods.value[i])
+      }
+    }
+    else{
+      for(let i = 0; i < origin_goods.value.length; i++){
+        if(origin_goods.value[i].name.toLowerCase().indexOf(queryString.toLowerCase()) != -1){
+          results.push(origin_goods.value[i])
+        }
+      }
+    }
+      cb(results)
+    }
+    const handleSelect = (queryString : any) => {
+      selected_good.value = queryString
+    }
+
+    const perform = ()=>{
+      goods.value = []
+      if(selected_good.value)
+      {
+        for(let i = 0; i < origin_goods.value.length; i++){
+        if(origin_goods.value[i].name.toLowerCase().indexOf(selected_good.value.name.toLowerCase()) != -1){
+          goods.value.push(origin_goods.value[i])
+        }
+      }
+    }
+    }
+
+    const reset = ()=>{
+      goods.value = origin_goods.value
+    }
 </script>
 <template>
   <div class="common-layout">
+    <el-autocomplete v-model="good" value-key="name" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入商品名" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
+    <el-button type="primary" @click="perform">确定</el-button>
     <el-table :data="goods" style="width: 100%" stripe border="true">
       <el-table-column prop="id" label="商品ID" sortable />
       <el-table-column prop="name" label="商品名称" sortable show-overflow-tooltip/>
-      <el-table-column prop="username" label="商家名" show-overflow-tooltip/>
-      <el-table-column prop="address" label="商家地址" show-overflow-tooltip/>
-      <el-table-column prop="phone" label="商家电话" show-overflow-tooltip/>
-      <el-table-column prop="email" label="商家邮箱" show-overflow-tooltip/>
-      <el-table-column prop="image" label="商品图片" show-overflow-tooltip>
-        <template #default="scope">
-          <img :src="scope.row.image" style="width: 50px; height: 50px;"/>
-        </template>
-      </el-table-column>
-      <el-table-column prop="category" label="商品类别" sortable show-overflow-tooltip/>
-      <el-table-column prop="description" label="商品描述" show-overflow-tooltip/>
-      <el-table-column prop="price" label="商品价格" sortable />
+      <el-table-column prop="photo" label="商品图片" sortable />
+      <el-table-column prop="description" label="商品描述" sortable show-overflow-tooltip/>
+      <el-table-column prop="prePrice" label="商品原价" sortable />
+      <el-table-column prop="price" label="商品现价" sortable />
+      <el-table-column prop="amount" label="商品数量" sortable />
+      <el-table-column prop="sellId" label="商家ID" sortable />
+      <el-table-column prop="createTime" label="商品创建时间" sortable />
+      <el-table-column prop="updateTime" label="商品更新时间" sortable />
       <el-table-column prop="status" label="商品状态" sortable >
         <template #default="scope">
           <span v-if="scope.row.status=='onsale'">未售出</span>
           <span v-if="scope.row.status=='normal'">已在售中</span>
           <span v-if="scope.row.status=='soldout'">售罄</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="check" label="商品审核情况" sortable>
-        <template #default="scope">
-          <span v-if="scope.row.check=='wait'">待审核</span>
-          <span v-if="scope.row.check=='pass'">已通过</span>
-          <span v-if="scope.row.check=='reject'">未通过</span>
         </template>
       </el-table-column>
       <el-table-column prop="action" fixed="right" label="审核操作" >

@@ -134,12 +134,6 @@ interface User{
       </el-table-column>
       <el-table-column prop="createTime" sortable label="创建时间" width="180"></el-table-column>
       <el-table-column prop="updateTime" sortable label="更新时间" width="180"></el-table-column>
-      <el-table-column prop="isDelete" sortable label="用户是否注销账户" width="180">
-        <template #default="scope">
-          <span v-if="scope.row.status==0">正常</span>
-          <span v-if="scope.row.status==1">已注销</span>
-        </template>
-      </el-table-column>
       <el-table-column prop="action" label="操作" fixed="right" width="150">
         <template #default="scope">
           <el-button type="danger" size="mini"  v-if="scope.row.status==0 && scope.row.isDelete==0" @click.native="() => {changeUserToDisabled(scope.$index)}">封禁</el-button>

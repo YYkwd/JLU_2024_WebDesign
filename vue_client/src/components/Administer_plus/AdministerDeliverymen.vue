@@ -2,56 +2,116 @@
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { RouterLink,RouterView } from 'vue-router';
-import  { ref }  from 'vue';
+import  { onMounted,ref }  from 'vue';
+import api from '@/api/request'
 //引入sotre 以存储管理员（包含authorization）
 import {useAdminStore} from '@/store/admin';
-  const  AdminStore = useAdminStore();
+import { RefSymbol } from '@vue/reactivity';
+const  AdminStore = useAdminStore();
 
-const deliverymen = ref([
-  {id:1,Name:'张三',email:'zhangsan@163.com',phone:'12345678900',address:'China',delivery_count:10,delivery_complaint_count:2,status:'normal'},
-  {id:2,Name:'李四',email:'lisi@163.com',phone:'12345678901',address:'China',delivery_count:10,delivery_complaint_count:2,status:'normal'},
- ])
+const origin_deliverymen = ref<deliveryman[]>([])
+const deliverymen = ref<deliveryman[]>([])
+const deliveryman = ref<deliveryman>()
+const selected_deliveryman = ref<deliveryman>()
  
-interface delliveryman{
+interface deliveryman{
   id: number,
+  avatarul: string,
+  email: string,
   commentAccount: number,
   badCommentAccount: number,
-  deliveryAcount: number,
+  deliverAcount: number,
   status: number,
   telephone: string,
   name: string,
   createTime: string,
-  updateTime: string
+  updateTime: string,
+  isDelete: number
 }
  
+onMounted(()=>{
+  api.get('/admin/delivers',{headers:{'Authorization': AdminStore.authorization}})
+  .then(res=>{
+    console.log(res.data.data)
+    origin_deliverymen.value = res.data.data
+    deliverymen.value = origin_deliverymen.value
+  })
+  .catch(err=>{
+    console.log(err)
+  })
+})
+
  function changeUserToNormal(index : any){
-      deliverymen.value[index].status = 'normal'
+    origin_deliverymen.value[index].status = 0
+      deliverymen.value[index].status = 0
     }
   function changeUserToDisabled(index : any){
-      deliverymen.value[index].status = 'disabled'
+      origin_deliverymen.value[index].status = 1
+      deliverymen.value[index].status = 1
   }
 
+  const querySearch = (queryString : any, cb : any)=>{
+      const results = <deliveryman[]>[]
+      if(!queryString) //无内容
+    {
+      for(let i = 0; i < origin_deliverymen.value.length; i++){
+        results.push(origin_deliverymen.value[i])
+      }
+    }
+    else{
+      for(let i = 0; i < origin_deliverymen.value.length; i++){
+        if(origin_deliverymen.value[i].name.toLowerCase().indexOf(queryString.toLowerCase()) != -1){
+          results.push(origin_deliverymen.value[i])
+        }
+      }
+    }
+      cb(results)
+    }
+    const handleSelect = (queryString : any) => {
+      selected_deliveryman.value = queryString
+    }
+
+    const perform = ()=>{
+      deliverymen.value = []
+      if(selected_deliveryman.value)
+      {
+        for(let i = 0; i < origin_deliverymen.value.length; i++){
+        if(origin_deliverymen.value[i].name.toLowerCase().indexOf(selected_deliveryman.value.name.toLowerCase()) != -1){
+          deliverymen.value.push(origin_deliverymen.value[i])
+        }
+      }
+    }
+    }
+
+    const reset = ()=>{
+      deliverymen.value = origin_deliverymen.value
+    }
 </script>
 <template>
   <div class="common-layout">
+    <el-autocomplete v-model="deliveryman" value-key="name" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入骑手名" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
+    <el-button type="primary" @click="perform">确定</el-button>
     <el-table :data="deliverymen" style="width: 100%" stripe border="true">
       <el-table-column prop="id" label="骑手ID" sortable />
-      <el-table-column prop="Name" label="骑手名" sortable />
+      <el-table-column prop="name" label="骑手名" sortable />
+      <el-table-column prop="avatarurl" label="骑手头像" show-overflow-tooltip/>
       <el-table-column prop="email" label="骑手邮箱" show-overflow-tooltip/>
       <el-table-column prop="phone" label="骑手电话" show-overflow-tooltip/>
-      <el-table-column prop="address" label="骑手地址" show-overflow-tooltip/>
+      <el-table-column prop="commentAccount" label="好评数" show-overflow-tooltip/>
+      <el-table-column prop="badCommentAccount" label="差评数" show-overflow-tooltip/>
       <el-table-column prop="delivery_count" sortable label="骑手商品邮寄总单数" />
-      <el-table-column prop="delivery_complaint_count" sortable label="用户投诉总数"/>
       <el-table-column prop="status" sortable label="用户状态" >
         <template #default="scope">
-          <span v-if="scope.row.status=='normal'">正常</span>
-          <span v-if="scope.row.status=='disabled'">封禁中</span>
+          <span v-if="scope.row.status==0 && scope.row.isDelete==0">正常</span>
+          <span v-if="scope.row.status==1 && scope.row.isDelete==0">封禁中</span>
+          <span v-if="scope.row.isDelete==1">已注销</span>
         </template>
       </el-table-column>
       <el-table-column prop="action" label="操作" fixed="right" width="150">
         <template #default="scope">
-          <el-button type="danger" size="mini"  v-if="scope.row.status=='normal'" @click.native="() => {changeUserToDisabled(scope.$index)}">封禁</el-button>
-          <el-button type="primary" size="mini"  v-if="scope.row.status=='disabled'" @click.native="() => {changeUserToNormal(scope.$index)}">解封</el-button>
+          <el-button type="danger" size="mini"  v-if="scope.row.status==0 && scope.row.isDelete==0" @click.native="() => {changeUserToDisabled(scope.$index)}">封禁</el-button>
+          <el-button type="primary" size="mini"  v-if="scope.row.status==1 && scope.row.isDelete==0" @click.native="() => {changeUserToNormal(scope.$index)}">解封</el-button>
+          <span v-if="scope.row.isDelete==1">已注销</span>
         </template>
       </el-table-column>
     </el-table>
