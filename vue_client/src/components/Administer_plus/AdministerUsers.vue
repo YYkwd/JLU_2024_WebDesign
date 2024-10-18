@@ -53,11 +53,25 @@ interface User{
     function changeUserToDisabled(index : any){
       origin_users.value[index].status = 1
       users.value[index].status = 1
+      api.put('/admin/users/'+users.value[index].id,{status:1},{headers:{'Authorization': AdminStore.authorization}})
+      .then(res=>{
+        console.log(res)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
     }
     
     function changeUserToNormal(index : any){
       origin_users.value[index].status = 0
       users.value[index].status = 0
+      api.put('/admin/users/'+users.value[index].id,{status:0},{headers:{'Authorization': AdminStore.authorization}})
+      .then(res=>{
+        console.log(res)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
     }
 
     const querySearch = (queryString : any, cb : any)=>{

@@ -43,11 +43,25 @@ onMounted(()=>{
 
  function changeUserToNormal(index : any){
     origin_deliverymen.value[index].status = 0
-      deliverymen.value[index].status = 0
-    }
+    deliverymen.value[index].status = 0
+    api.put('/admin/delivers/'+deliverymen.value[index].id,{status:0},{headers:{'Authorization': AdminStore.authorization}})
+    .then(res=>{
+      console.log(res)
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
   function changeUserToDisabled(index : any){
       origin_deliverymen.value[index].status = 1
       deliverymen.value[index].status = 1
+      api.put('/admin/delivers/'+deliverymen.value[index].id,{status:1},{headers:{'Authorization': AdminStore.authorization}})
+      .then(res=>{
+        console.log(res)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
   }
 
   const querySearch = (queryString : any, cb : any)=>{

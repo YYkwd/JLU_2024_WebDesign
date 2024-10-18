@@ -41,11 +41,27 @@ onMounted(()=>{
 })
 
 function Agreement(index : any){
+  origin_goods.value[index].status = 1
   goods.value[index].status = 1
+  api.put('/admin/goods/'+goods.value[index].id,{status:1},{headers:{'Authorization': AdminStore.authorization}})
+  .then(res=>{
+    console.log(res)
+  })
+  .catch(err=>{
+    console.log(err)
+  })
 }
 
 function Objection(index : any){
-  goods.value[index].status = -1
+  origin_goods.value[index].status = 2
+  goods.value[index].status = 2
+  api.put('/admin/goods/'+goods.value[index].id,{status:2},{headers:{'Authorization': AdminStore.authorization}})
+  .then(res=>{
+    console.log(res)
+  })
+  .catch(err=>{
+    console.log(err)
+  })
 }
 
 const querySearch = (queryString : any, cb : any)=>{
@@ -102,16 +118,16 @@ const querySearch = (queryString : any, cb : any)=>{
       <el-table-column prop="updateTime" label="商品更新时间" sortable />
       <el-table-column prop="status" label="商品状态" sortable >
         <template #default="scope">
-          <span v-if="scope.row.status=='onsale'">未售出</span>
-          <span v-if="scope.row.status=='normal'">已在售中</span>
-          <span v-if="scope.row.status=='soldout'">售罄</span>
+          <span v-if="scope.row.status==0 && !(scope.row.amount<=0)">未上架</span>
+          <span v-if="scope.row.status==1 && !(scope.row.amount<=0)">已上架</span>
+          <span v-if="scope.row.status==2 && !(scope.row.amount<=0)">违规下架</span>
+          <span v-if="scope.row.amount<=0">已售罄</span>
         </template>
       </el-table-column>
       <el-table-column prop="action" fixed="right" label="审核操作" >
         <template #default="scope">
-          <el-button type="primary" size="mini" @click="Agreement(scope.$index)" v-if="!(scope.row.check=='pass') && scope.row.status=='onsale'">通过</el-button>
-          <el-button type="danger" size="mini" @click="Objection(scope.$index)" v-if="!(scope.row.check=='reject') && scope.row.status=='onsale'">驳回</el-button>
-          <span v-if="!(scope.row.status=='onsale')">禁用操作</span>
+          <el-button type="primary" size="mini" @click="Agreement(scope.$index)" v-if="scope.row.status==0 || scope.row.status==2">通过审核</el-button>
+          <el-button type="danger" size="mini" @click="Objection(scope.$index)" v-if="scope.row.status==0 || scope.row.status==1">驳回</el-button>
         </template>
       </el-table-column>
     </el-table>
