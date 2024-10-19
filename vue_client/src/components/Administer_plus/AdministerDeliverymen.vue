@@ -44,7 +44,7 @@ onMounted(()=>{
  function changeUserToNormal(index : any){
     origin_deliverymen.value[index].status = 0
     deliverymen.value[index].status = 0
-    api.put('/admin/delivers/'+deliverymen.value[index].id,{status:0},{headers:{'Authorization': AdminStore.authorization}})
+    api.put('/admin/delivers/'+deliverymen.value[index].id,{"status":0},{headers:{'Authorization': AdminStore.authorization}})
     .then(res=>{
       console.log(res)
     })
@@ -55,7 +55,7 @@ onMounted(()=>{
   function changeUserToDisabled(index : any){
       origin_deliverymen.value[index].status = 1
       deliverymen.value[index].status = 1
-      api.put('/admin/delivers/'+deliverymen.value[index].id,{status:1},{headers:{'Authorization': AdminStore.authorization}})
+      api.put('/admin/delivers/'+deliverymen.value[index].id,{"status":1},{headers:{'Authorization': AdminStore.authorization}})
       .then(res=>{
         console.log(res)
       })
@@ -103,7 +103,7 @@ onMounted(()=>{
 </script>
 <template>
   <div class="common-layout">
-    <el-autocomplete v-model="deliveryman" value-key="name" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入骑手名" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
+    <el-autocomplete v-model="deliverymancomplaint" value-key="name" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入骑手名" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
     <el-button type="primary" @click="perform">确定</el-button>
     <el-table :data="deliverymen" style="width: 100%" stripe border="true">
       <el-table-column prop="id" label="骑手ID" sortable />

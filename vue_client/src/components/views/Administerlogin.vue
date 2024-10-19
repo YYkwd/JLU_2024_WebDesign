@@ -95,7 +95,7 @@
   
         try {
           // 发送 POST 请求，传递邮箱、密码和授权字段
-          const response = await api.post('/user/login', 
+          const response = await api.post('/admin/login', 
           {//请求体
             email: ruleForm.email,
             password: ruleForm.pass,
