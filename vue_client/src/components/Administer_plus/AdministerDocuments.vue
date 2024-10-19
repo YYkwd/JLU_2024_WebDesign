@@ -94,7 +94,7 @@ const querySearch = (queryString : any, cb : any)=>{
     function Objection(index : any){
       origin_documents.value[index].status = 5
       documents.value[index].status = 5
-      api.delete('/admin/orders/'+documents.value[index].id,{"status":5},{headers :{ authorization : AdminStore.authorization }})
+      api.put('/admin/orders/'+documents.value[index].id,{"status":5},{headers :{ authorization : AdminStore.authorization }})
       .then(res=>{
         console.log(res.data)
         alert("已拒绝退款")
