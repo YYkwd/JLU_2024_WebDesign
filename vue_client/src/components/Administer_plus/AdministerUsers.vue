@@ -117,7 +117,6 @@ interface User{
   <div class="common-layout">
     <el-autocomplete v-model="user" value-key="name" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入用户名" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
     <el-button type="primary" @click="perform">确定</el-button>
-    <el-scrollbar >
     <el-table :data="users" style="width: 100%" stripe border="true" height="600px">
       <el-table-column prop="id" sortable label="用户ID" width="180"></el-table-column>
       <el-table-column prop="role" sortable label="用户角色" width="180">
@@ -163,7 +162,6 @@ interface User{
         </template>
       </el-table-column>
     </el-table>
-  </el-scrollbar>
   </div>
 </template>
 

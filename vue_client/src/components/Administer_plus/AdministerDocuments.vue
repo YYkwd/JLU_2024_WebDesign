@@ -108,7 +108,7 @@ const querySearch = (queryString : any, cb : any)=>{
   <div class="common-layout">
     <el-autocomplete v-model="document" value-key="appealDescription" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入账单描述" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
     <el-button type="primary" @click="perform">确定</el-button>
-    <el-table :data="documents" style="width: 100%" stripe border="true">
+    <el-table :data="documents" style="width: 100%" stripe border="true" height="600px">
       <el-table-column prop="id" label="订单号" width="180" />
       <el-table-column prop="purchaseId" label="购买者ID" width="180" />
       <el-table-column prop="goodsId" label="商品ID" width="180" />

@@ -105,7 +105,7 @@ onMounted(()=>{
   <div class="common-layout">
     <el-autocomplete v-model="deliverymancomplaint" value-key="name" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入骑手名" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
     <el-button type="primary" @click="perform">确定</el-button>
-    <el-table :data="deliverymen" style="width: 100%" stripe border="true">
+    <el-table :data="deliverymen" style="width: 100%" stripe border="true" height="600px">
       <el-table-column prop="id" label="骑手ID" sortable />
       <el-table-column prop="name" label="骑手名" sortable />
       <el-table-column prop="avatarurl" label="骑手头像" show-overflow-tooltip>
