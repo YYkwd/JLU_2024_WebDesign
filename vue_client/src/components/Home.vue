@@ -58,7 +58,7 @@ export default {
       <el-body class="body-layout">
         <el-carousel class="carousel-center">
         <el-carousel-item v-for="item in imgList" :key="item.id">
-          <img :src="item.idView" height="90%" width="30%">
+          <img :src="item.idView" height="90%" width="30%" alt="无图片">
           <br>
           <el-text font-size="30px" font-weight="bold">{{item.name}}</el-text>
         </el-carousel-item>

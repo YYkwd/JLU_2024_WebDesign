@@ -53,7 +53,7 @@ interface User{
     function changeUserToDisabled(index : any){
       origin_users.value[index].status = 1
       users.value[index].status = 1
-      api.put('/admin/users/'+users.value[index].id,{status:1},{headers:{'Authorization': AdminStore.authorization}})
+      api.put('/admin/users/'+users.value[index].id,{"status":1},{headers:{'Authorization': AdminStore.authorization}})
       .then(res=>{
         console.log(res)
       })
@@ -65,7 +65,7 @@ interface User{
     function changeUserToNormal(index : any){
       origin_users.value[index].status = 0
       users.value[index].status = 0
-      api.put('/admin/users/'+users.value[index].id,{status:0},{headers:{'Authorization': AdminStore.authorization}})
+      api.put('/admin/users/'+users.value[index].id,{"status":0},{headers:{'Authorization': AdminStore.authorization}})
       .then(res=>{
         console.log(res)
       })
@@ -117,7 +117,8 @@ interface User{
   <div class="common-layout">
     <el-autocomplete v-model="user" value-key="name" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入用户名" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
     <el-button type="primary" @click="perform">确定</el-button>
-    <el-table :data="users" style="width: 100%" stripe border="true">
+    <el-scrollbar >
+    <el-table :data="users" style="width: 100%" stripe border="true" height="600px">
       <el-table-column prop="id" sortable label="用户ID" width="180"></el-table-column>
       <el-table-column prop="role" sortable label="用户角色" width="180">
         <template #default="scope">
@@ -162,11 +163,12 @@ interface User{
         </template>
       </el-table-column>
     </el-table>
+  </el-scrollbar>
   </div>
 </template>
 
 <style scoped>
-    .common-layout{
+.common-layout{ 
   height: 100%;
   width: 100%;
   margin: 0px;

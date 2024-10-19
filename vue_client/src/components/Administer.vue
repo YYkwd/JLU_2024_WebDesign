@@ -171,8 +171,8 @@ export default {
 
 <style scoped>
 .common-layout{
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   margin: 0px;
   padding: 0px;
   background-color: red;
@@ -187,10 +187,9 @@ export default {
 }
 .header-layout{
   height: 60px;
-  width:100%;
+  width: 100%;
   margin: 0px;
   padding: 0px;
-  /*background-color: #c6e2ff;*/
 }
 .body-layout{
   width: 100%;
@@ -216,10 +215,13 @@ export default {
   background-color: white;
 }
 .footer-layout{
+  height: 60px;
   width:100%;
   margin: 0px;
   padding: 0px;
   background-color: black;
+  position: fixed;
+  bottom: 0;
 }
 .col-center-left{
   display: flex;

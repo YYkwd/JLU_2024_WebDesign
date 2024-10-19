@@ -2,6 +2,8 @@
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { RouterLink,RouterView } from 'vue-router';
+import  { onMounted,ref }  from 'vue';
+import api from '@/api/request'
 //引入sotre 以存储管理员（包含authorization）
 import {useAdminStore} from '@/store/admin';
   const  AdminStore = useAdminStore();

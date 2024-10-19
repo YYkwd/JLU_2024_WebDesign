@@ -43,7 +43,7 @@ onMounted(()=>{
 function Agreement(index : any){
   origin_goods.value[index].status = 1
   goods.value[index].status = 1
-  api.put('/admin/goods/'+goods.value[index].id,{status:1},{headers:{'Authorization': AdminStore.authorization}})
+  api.put('/admin/goods/'+goods.value[index].id,{"status":1},{headers:{'Authorization': AdminStore.authorization}})
   .then(res=>{
     console.log(res)
   })
@@ -55,7 +55,7 @@ function Agreement(index : any){
 function Objection(index : any){
   origin_goods.value[index].status = 2
   goods.value[index].status = 2
-  api.put('/admin/goods/'+goods.value[index].id,{status:2},{headers:{'Authorization': AdminStore.authorization}})
+  api.put('/admin/goods/'+goods.value[index].id,{"status":2},{headers:{'Authorization': AdminStore.authorization}})
   .then(res=>{
     console.log(res)
   })
