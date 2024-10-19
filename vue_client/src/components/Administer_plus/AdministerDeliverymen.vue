@@ -108,7 +108,13 @@ onMounted(()=>{
     <el-table :data="deliverymen" style="width: 100%" stripe border="true">
       <el-table-column prop="id" label="骑手ID" sortable />
       <el-table-column prop="name" label="骑手名" sortable />
-      <el-table-column prop="avatarurl" label="骑手头像" show-overflow-tooltip/>
+      <el-table-column prop="avatarurl" label="骑手头像" show-overflow-tooltip>
+        <template #default="scope">
+          <div style="width: 110px;height: 110px;display: flex;align-items: center;">
+          <img :src="scope.row.avatarurl" style="width: 50px;height: 50px;" alt="没有头像"/>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="email" label="骑手邮箱" show-overflow-tooltip/>
       <el-table-column prop="phone" label="骑手电话" show-overflow-tooltip/>
       <el-table-column prop="commentAccount" label="好评数" show-overflow-tooltip/>

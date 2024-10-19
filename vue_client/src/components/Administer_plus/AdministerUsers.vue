@@ -126,7 +126,13 @@ interface User{
         </template>
       </el-table-column>
       <el-table-column prop="name" sortable label="用户名" width="180"></el-table-column>
-      <el-table-column prop="avatarurl" sortable label="用户头像" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="avatarurl" label="用户头像" width="180">
+        <template #default="scope">
+          <div style="width: 110px;height: 110px;display: flex;align-items: center;">
+          <img :src="scope.row.avatarurl" width="50px" height="50px" alt="没有头像"/>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="email" sortable label="用户邮箱" show-overflow-tooltip></el-table-column>
       <el-table-column prop="telephone" sortable label="用户电话" show-overflow-tooltip></el-table-column>
       <el-table-column prop="location" sortable label="用户地址" show-overflow-tooltip></el-table-column>
