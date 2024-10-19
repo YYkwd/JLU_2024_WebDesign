@@ -108,7 +108,7 @@ function Objection(index : any){
   <div class="common-layout">
     <el-autocomplete v-model="goodcomplaint" value-key="description" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入描述" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
     <el-button type="primary" @click="perform">确定</el-button>
-    <el-table :data="goodscomplaint" style="width: 100%" stripe border="true">
+    <el-table :data="goodscomplaint" style="width: 100%" stripe border="true" height="600px">
       <el-table-column prop="id" label="ID" />
       <el-table-column prop="commentId" label="评论ID" />
       <el-table-column prop="degree" label="评分" />

@@ -105,7 +105,7 @@ const querySearch = (queryString : any, cb : any)=>{
   <div class="common-layout">
     <el-autocomplete v-model="good" value-key="name" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入商品名" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
     <el-button type="primary" @click="perform">确定</el-button>
-    <el-table :data="goods" style="width: 100%" stripe border="true">
+    <el-table :data="goods" style="width: 100%" stripe border="true" height="600px">
       <el-table-column prop="id" label="商品ID" sortable />
       <el-table-column prop="name" label="商品名称" sortable show-overflow-tooltip/>
       <el-table-column prop="photo" label="商品图片" sortable >

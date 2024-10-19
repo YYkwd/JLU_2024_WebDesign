@@ -150,7 +150,7 @@ export default {
       </el-menu>
       </el-aside>
       <el-main class="router-view-layout">
-        <router-view />
+        <router-view class="router-view-layout"/>
       </el-main>
       </el-container>
       <el-footer class="footer-layout">
@@ -193,7 +193,7 @@ export default {
 }
 .body-layout{
   width: 100%;
-  flex-grow: 1;
+  height: (100vh-120px);
   margin: 0px;
   padding: 0px;
   align-items: center;
