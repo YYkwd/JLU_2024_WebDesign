@@ -108,7 +108,13 @@ const querySearch = (queryString : any, cb : any)=>{
     <el-table :data="goods" style="width: 100%" stripe border="true">
       <el-table-column prop="id" label="商品ID" sortable />
       <el-table-column prop="name" label="商品名称" sortable show-overflow-tooltip/>
-      <el-table-column prop="photo" label="商品图片" sortable />
+      <el-table-column prop="photo" label="商品图片" sortable >
+        <template #default="scope">
+          <div style="width: 110px;height: 110px;display: flex;align-items: center;">
+          <img :src="scope.row.photo" style="width: 50px; height: 50px;" alt="没有图片"/>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="description" label="商品描述" sortable show-overflow-tooltip/>
       <el-table-column prop="prePrice" label="商品原价" sortable />
       <el-table-column prop="price" label="商品现价" sortable />

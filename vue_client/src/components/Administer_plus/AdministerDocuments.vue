@@ -88,7 +88,13 @@ const querySearch = (queryString : any, cb : any)=>{
       <el-table-column prop="deliverId" label="配送员ID" width="180" />
       <el-table-column prop="totalPrice" label="总价" width="180" />
       <el-table-column prop="appealDescription" label="评论描述" width="180" />
-      <el-table-column prop="appealPhoto" label="评论图片" width="180" />
+      <el-table-column prop="appealPhoto" label="评论图片" width="180" >
+        <template #default="scope">
+          <div style="width: 110px;height: 110px;display: flex;align-items: center;">
+          <img :src="scope.row.appealPhoto" width="50px" height="50px" alt="没有图片">
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="status" label="状态" width="180" />
       <el-table-column prop="createTime" label="创建时间" width="180" />
       <el-table-column prop="arriveTime" label="到达时间" width="180" />
