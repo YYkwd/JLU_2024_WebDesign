@@ -134,6 +134,7 @@ const querySearch = (queryString : any, cb : any)=>{
         <template #default="scope">
           <el-button type="primary" size="mini" @click="Agreement(scope.$index)" v-if="scope.row.status==0 || scope.row.status==2">通过审核</el-button>
           <el-button type="danger" size="mini" @click="Objection(scope.$index)" v-if="scope.row.status==0 || scope.row.status==1">驳回</el-button>
+          <span v-if="scope.row.amount<=0">已售罄</span>
         </template>
       </el-table-column>
     </el-table>
