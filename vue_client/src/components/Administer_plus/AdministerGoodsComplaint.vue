@@ -53,7 +53,7 @@ const querySearch = (queryString : any, cb : any)=>{
     }
     else{
       for(let i = 0; i < origin_goodscomplaint.value.length; i++){
-        if(origin_goodscomplaint.value[i].name.toLowerCase().indexOf(queryString.toLowerCase()) != -1){
+        if(origin_goodscomplaint.value[i].description.toLowerCase().indexOf(queryString.toLowerCase()) != -1){
           results.push(origin_goodscomplaint.value[i])
         }
       }
@@ -69,7 +69,7 @@ const querySearch = (queryString : any, cb : any)=>{
       if(selected_goodcomplaint.value)
       {
         for(let i = 0; i < origin_goodscomplaint.value.length; i++){
-        if(origin_goodscomplaint.value[i].name.toLowerCase().indexOf(selected_goodcomplaint.value.name.toLowerCase()) != -1){
+        if(origin_goodscomplaint.value[i].description.toLowerCase().indexOf(selected_goodcomplaint.value.description.toLowerCase()) != -1){
           goodscomplaint.value.push(origin_goodscomplaint.value[i])
         }
       }
@@ -92,7 +92,7 @@ function Agreement(index : any){
 }
 
 function Objection(index : any){
-  origin_deliverymencomplaint.value[index].status=2
+  origin_goodscomplaint.value[index].status=2
   goodscomplaint.value[index].status=2
   api.put('/admin/comments/'+goodscomplaint.value[index].id,{"status":2},{headers:{'Authorization': AdminStore.authorization}})
   .then(res=>{

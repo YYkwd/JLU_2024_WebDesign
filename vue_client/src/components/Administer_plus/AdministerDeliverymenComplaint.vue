@@ -53,7 +53,7 @@ const querySearch = (queryString : any, cb : any)=>{
     }
     else{
       for(let i = 0; i < origin_deliverymencomplaint.value.length; i++){
-        if(origin_deliverymencomplaint.value[i].name.toLowerCase().indexOf(queryString.toLowerCase()) != -1){
+        if(origin_deliverymencomplaint.value[i].description.toLowerCase().indexOf(queryString.toLowerCase()) != -1){
           results.push(origin_deliverymencomplaint.value[i])
         }
       }
@@ -69,7 +69,7 @@ const querySearch = (queryString : any, cb : any)=>{
       if(selected_deliverymancomplaint.value)
       {
         for(let i = 0; i < origin_deliverymencomplaint.value.length; i++){
-        if(origin_deliverymencomplaint.value[i].name.toLowerCase().indexOf(selected_deliverymancomplaint.value.name.toLowerCase()) != -1){
+        if(origin_deliverymencomplaint.value[i].description.toLowerCase().indexOf(selected_deliverymancomplaint.value.description.toLowerCase()) != -1){
           deliverymencomplaint.value.push(origin_deliverymencomplaint.value[i])
         }
       }
@@ -108,7 +108,7 @@ function Objection(index : any){
   <div class="common-layout">
     <el-autocomplete v-model="deliverymancomplaint" value-key="description" class="inline-input w-50" :fetch-suggestions="querySearch" clearable placeholder="输入描述" style="width: 200px" @select="handleSelect" @change="reset"></el-autocomplete>
     <el-button type="primary" @click="perform">确定</el-button>
-    <el-table :data="goodscomplaint" style="width: 100%" stripe border="true" height="600px">
+    <el-table :data="deliverymencomplaint" style="width: 100%" stripe border="true" height="600px">
       <el-table-column prop="id" label="ID" />
       <el-table-column prop="commentId" label="评论ID" />
       <el-table-column prop="degree" label="评分" />

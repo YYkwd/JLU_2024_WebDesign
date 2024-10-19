@@ -53,7 +53,7 @@ const querySearch = (queryString : any, cb : any)=>{
     }
     else{
       for(let i = 0; i < origin_sellerscomplaint.value.length; i++){
-        if(origin_sellerscomplaint.value[i].name.toLowerCase().indexOf(queryString.toLowerCase()) != -1){
+        if(origin_sellerscomplaint.value[i].description.toLowerCase().indexOf(queryString.toLowerCase()) != -1){
           results.push(origin_sellerscomplaint.value[i])
         }
       }
@@ -69,7 +69,7 @@ const querySearch = (queryString : any, cb : any)=>{
       if(selected_sellercomplaint.value)
       {
         for(let i = 0; i < origin_sellerscomplaint.value.length; i++){
-        if(origin_sellerscomplaint.value[i].name.toLowerCase().indexOf(selected_sellercomplaint.value.name.toLowerCase()) != -1){
+        if(origin_sellerscomplaint.value[i].description.toLowerCase().indexOf(selected_sellercomplaint.value.description.toLowerCase()) != -1){
           sellerscomplaint.value.push(origin_sellerscomplaint.value[i])
         }
       }
