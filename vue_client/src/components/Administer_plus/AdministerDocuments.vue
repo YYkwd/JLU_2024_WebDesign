@@ -132,6 +132,8 @@ const querySearch = (queryString : any, cb : any)=>{
         <span v-else-if="scope.row.status == 4">已同意退款</span>
         <span v-else-if="scope.row.status == 5">已拒绝退款</span>
         <span v-else-if="scope.row.status == 6">待管理员审核</span>
+        <span v-else-if="scope.row.status == 7">订单已完成</span>
+        <span v-else-if="scope.row.status == 8">订单已评论</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="180" />
