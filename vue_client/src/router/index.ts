@@ -138,31 +138,12 @@ const router = createRouter({
 
                     //正在配送的订单
                     {
-                        path: 'orders_delivering',
-                        name: 'OrdersDelivering',
-                        component: () => import('../components/User/UserPage/OrdersDelivering.vue')
-                    },
-
-                    //已经送达的订单
-
-                    {
-                        path: 'orders_Delivered',
-                        name: 'OrdersDelivered',
-                        component: () => import('../components/User/UserPage/OrdersDelivered.vue')
-                    },
-                    //申诉中的订单
-                    {
-                        path: 'orders_appealing',
-                        name: 'OrdersAppealing',
-                        component: () => import('../components/User/UserPage/OrdersAppealing.vue')
+                        path : 'goods' ,
+                        name : 'MyGoods' ,
+                        component : () => import('../components/User/UserPage/Goods.vue')
                     }
-                    ,
-                    //已经完成的订单
-                    {
-                        path: 'orders_accomplished',
-                        name: 'OrdersAccomplished',
-                        component: () => import('../components/User/UserPage/OrdersAccomplished.vue')
-                    }
+
+                    
                 ]
 
         },

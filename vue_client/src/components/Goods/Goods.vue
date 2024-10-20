@@ -23,17 +23,35 @@ interface good {
   isDelete: number,
 }
     
-const origin_goods = ref<good[]>([])
+const origin_goods = ref<good[]>([
+  {id:1,name:'good1',photo:'',description:'芝士雪豹',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:2,name:'good2',photo:'',description:'芝士鳕堡',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:3,name:'good3',photo:'',description:'这是我们的义务',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:4,name:'good4',photo:'',description:'我阐述你的梦',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:5,name:'good5',photo:'',description:'冲刺冲刺冲刺冲',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:6,name:'good6',photo:'',description:'不是哥们',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:7,name:'good7',photo:'',description:'兄弟兄弟',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:8,name:'good8',photo:'',description:'霜华满天',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:9,name:'good9',photo:'',description:'恭恭敬敬磕大头',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:10,name:'good10',photo:'',description:'潜伏在西方的中国人',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:11,name:'good11',photo:'',description:'要给他迎头痛击',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:12,name:'good12',photo:'',description:'不利于团结的话不要说',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:13,name:'good13',photo:'',description:'三句话让男人为我花十八万',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:14,name:'good14',photo:'',description:'这河里吗',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:15,name:'good15',photo:'',description:'这恒河里',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:16,name:'good16',photo:'',description:'你被骗了',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:17,name:'good17',photo:'',description:'罕见',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0},
+  {id:18,name:'good18',photo:'',description:'你看这哪有瓜',prePrice:1,price:2,amount:3,sellId:4,createTime:new Date(),updateTime:new Date(),status:1,isDelete:0}
+])
 const goods = ref<good[]>([])
 const good = ref<good>()
 const selected_good = ref<good>()
-
 onMounted(()=>{
-  api.get('/admin/goods',{headers:{'Authorization': AdminStore.authorization}}).then(res=>{
+  /*api.get('/admin/goods',{headers:{'Authorization': AdminStore.authorization}}).then(res=>{
     goods.value = res.data
   }).catch(err=>{
     console.log(err)
-  })
+  })*/
  goods.value = origin_goods.value
  console.log(goods.value.length)
 })

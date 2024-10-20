@@ -132,9 +132,9 @@ const querySearch = (queryString : any, cb : any)=>{
       </el-table-column>
       <el-table-column prop="action" fixed="right" label="审核操作" >
         <template #default="scope">
-          <el-button type="primary" size="mini" @click="Agreement(scope.$index)" v-if="scope.row.status==0 || scope.row.status==2">通过审核</el-button>
-          <el-button type="danger" size="mini" @click="Objection(scope.$index)" v-if="scope.row.status==0 || scope.row.status==1">驳回</el-button>
           <span v-if="scope.row.amount<=0">已售罄</span>
+          <el-button type="primary" size="mini" @click="Agreement(scope.$index)" v-else-if="scope.row.status==0 || scope.row.status==2">通过审核</el-button>
+          <el-button type="danger" size="mini" @click="Objection(scope.$index)" v-if="(scope.row.status==0 || scope.row.status==1) && scope.row.amount>0">驳回</el-button>
         </template>
       </el-table-column>
     </el-table>
