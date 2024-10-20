@@ -97,6 +97,37 @@ const router = createRouter({
                         name: 'CountControl',
                         component: () => import('../components/User/UserPage/CountControl.vue')
                     },
+                     //发布商品界面
+                    {
+                        path : 'goods_sell' ,
+                        name : 'GoodsSell' ,
+                        component : () => import('../components/User/UserPage/GoodsSell.vue')
+
+                    },
+
+                    //我发布的商品界面
+
+                    {
+                        path : 'goods_self' , 
+                        name : 'GoodsSelf' ,
+                        component : () => import('../components/User/UserPage/GoodsSelf.vue')
+
+                    },
+                    //订单
+                    {
+                        path : 'orders' ,
+                        name : 'Orders' , 
+                        component : () => import('../components/User/UserPage/Orders.vue')
+                    },
+
+                    //待售商品界面
+                    {
+                        path : 'goods' ,
+                        name : 'MyGoods' ,
+                        component : () => import('../components/User/UserPage/Goods.vue')
+                    }
+
+                    
                 ]
 
         },
@@ -105,7 +136,44 @@ const router = createRouter({
         {
             path: '/deliver_menu',
             name: 'Deliver_menu',
-            component: () => import('../components/Deliver/Menu.vue')
+            component: () => import('../components/Deliver/Menu.vue'),
+
+            children:
+                [
+                    {
+                        path: 'show_info',
+                        name: 'DeliverInfoShow',
+                        component: () => import('../components/Deliver/DeliverPage/ShowInfo.vue')
+                    },
+
+                    {
+                        path: 'info_editor',
+                        name: 'DeliverInfoEditor',
+                        component: () => import('../components/Deliver/DeliverPage/InfoEditor.vue')
+                    },
+
+
+                    {
+                        path: 'count_control',
+                        name: 'DeliverCountControl',
+                        component: () => import('../components/Deliver/DeliverPage/CountControl.vue')
+                    },
+                    
+                    //待接单
+
+                    {
+                        path : 'waited_deliver' ,
+                        name : 'WaitedDeliver' ,
+                        component: () => import('../components/Deliver/DeliverPage/WaitedDeliver.vue')
+                    },
+                        //配送
+                    {
+                        path : 'delivering' ,
+                        name : 'Delivering' ,
+                        component: () => import('../components/Deliver/DeliverPage/Delivering.vue')
+                    }
+                    
+                ]
         },
         {
             path: '/',
