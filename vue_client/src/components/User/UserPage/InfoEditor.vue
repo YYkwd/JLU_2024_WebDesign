@@ -32,11 +32,6 @@
         <el-input v-model="userInfo.telephone" placeholder="请输入电话" />
       </el-form-item>
 
-      <!-- 邮箱 -->
-      <el-form-item label="邮箱">
-        <el-input v-model="userInfo.email" placeholder="请输入邮箱" />
-      </el-form-item>
-
       <!-- 地址 -->
       <el-form-item label="地址">
         <el-input v-model="userInfo.location" placeholder="请输入地址" />
@@ -76,7 +71,6 @@ interface UserInfo {
   avatarurl: string;
   name: string;
   telephone: string;
-  email: string;
   location: string;
   description: string;
   password : string ;
@@ -87,12 +81,12 @@ const userInfo = ref<UserInfo>({
   avatarurl: '',
   name: '',
   telephone: '',
-  email: '',
   location: '',
   description: '' ,
   password : ''
 });
 // 自定义上传逻辑，使用 PUT 方法
+//option 是 el-update 上传组件上传文件时候自动传递的参数对象
 const avatarUpload = async (option: any) => {
   const formData = new FormData();
   formData.append('file', option.file);  // 添加文件到 formData 中
@@ -132,7 +126,6 @@ const fetchUserInfo = async () => {
         avatarurl: data.avatarurl || man1,       // 使用后端提供的头像URL
         name: data.name || '无昵称',
         telephone: data.telephone || '请填入手机号',
-        email: data.email || '',
         location: data.location || '请填入地址',
         description: data.description || '暂无个性签名' ,
         password : data.password 
@@ -144,11 +137,10 @@ const fetchUserInfo = async () => {
     // 模拟数据
     const mockData: UserInfo = {
       avatarurl: man1,
-      name: 'John Doe',
+      name: '匿名',
       telephone: '123-456-7890',
-      email: 'johndoe@example.com',
-      location: '123 Main St, Anytown, USA',
-      description: 'Keep pushing forward!',
+      location: 'JLU',
+      description: 'MAN!',
       password : ''
     };
     userInfo.value = { ...mockData };

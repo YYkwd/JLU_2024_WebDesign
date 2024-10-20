@@ -117,15 +117,21 @@ const rules = reactive<FormRules<typeof ruleForm>>({
   verificationCode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
   pass: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-  location: [{ required: true, message: '请选择登录类型', trigger: 'change' }],
+  location: [{ required: true, message: '请选择注册类型', trigger: 'change' }],
 });
 
 // 获取验证码
 // 获取验证码的请求
 const getVerificationCode = async () => {
+  if (!ruleForm.location) {
+    // 如果用户没有选择注册类型，提示用户选择
+    ElMessage.error('请先选择注册类型');
+    return;
+  }
   try {
+    const str = ruleForm.location === '骑手' ? '/deliver/register/code' : '/user/register/code'
     const response = await api.post(
-      '/user/register/code',
+      str,
       null, // POST 请求体为空
       {
         params: {

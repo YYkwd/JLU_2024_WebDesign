@@ -9,20 +9,6 @@ import api from '@/api/request'
 const  UserStore = useUserStore();
 console.log(UserStore.authorization);
 
-/*
-//目录挂载时候获取数据
-onMounted(()=>{
-  api.post('/user/current'  ,null ,
- {headers :{ Authorization : UserStore.authorization }})
-  .then(res=>{
-    console.log(res.data.data)
-    //documents.value = res.data.data
-  })
-  .catch(err=>{
-    console.log(err)
-  })
-})
-  */
 console.log(UserStore.authorization);
 // 使用 Vue Router 的组合式 API
 const router = useRouter();
@@ -53,9 +39,12 @@ const goToGoods = () => {
 const goToGoodsSell = () => {
   router.push('/user_menu/goods_sell')
 };
+const goToGoodsSelf = () => {
+  router.push('/user_menu/goods_self')
+};
 
-const goToOrder = () => {
-  router.push('/user_menu/order')
+const goToOrders = () => {
+  router.push('/user_menu/orders')
 };
 </script>
 
@@ -106,17 +95,35 @@ const goToOrder = () => {
             </el-menu-item>
             </el-sub-menu>
 
+
+
+            
+            
             <el-menu-item index="2" @click="goToGoods">
               <el-icon><GoodsFilled /></el-icon>
               <span>在售商品</span>
             </el-menu-item>
             
-            <el-menu-item index="3" @click="goToGoodsSell">
-              <el-icon><GoodsFilled /></el-icon>
-              <span>发布商品</span>
+
+            <el-sub-menu index="3">
+              <template #title>
+                <el-icon><GoodsFilled /></el-icon>
+                  <span>我的商品</span>
+              </template>
+
+            <el-menu-item index="1-1" @click="goToGoodsSell()">
+                
+                <span>发布商品</span>
             </el-menu-item>
 
-            <el-menu-item index="4" @click="goToOrder">
+            <el-menu-item index="1-2" @click="goToGoodsSelf()">
+                
+                <span>我的商品</span>
+            </el-menu-item>
+          </el-sub-menu>
+
+
+            <el-menu-item index="4" @click="goToOrders">
               <el-icon><PhoneFilled /></el-icon>
               <span>订单</span>
             </el-menu-item>
