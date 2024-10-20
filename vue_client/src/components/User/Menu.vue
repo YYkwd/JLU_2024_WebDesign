@@ -182,10 +182,6 @@ const goToOrdersAppealing= () => {
                 <span>已完成</span>
             </el-menu-item>
             
-            <el-menu-item index="1-6" @click="goToOrdersAppealing()">
-                
-                <span>个人出售订单</span>
-            </el-menu-item>
 
 
           </el-sub-menu>
