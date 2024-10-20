@@ -125,8 +125,14 @@ const router = createRouter({
                         path : 'goods' ,
                         name : 'MyGoods' ,
                         component : () => import('../components/User/UserPage/Goods.vue')
-                    }
-
+                    },
+                    
+                    //申诉界面
+                    {
+                        path : 'complaint/:id' ,
+                        name : 'Complaint/:id' ,
+                        component : () => import('../components/User/UserPage/Complaint.vue')
+                    },
                     
                 ]
 

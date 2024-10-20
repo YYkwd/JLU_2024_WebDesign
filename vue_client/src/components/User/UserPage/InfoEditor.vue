@@ -17,7 +17,7 @@
           :show-file-list="false"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="userInfo.avatarurl" :src="userInfo.avatarurl" class="avatar" />
+          <img v-if="userInfo.avatarurl" :src="userInfo.avatarurl" class="avatar" alt="Avatar"/>
           <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
         </el-upload>
       </el-form-item>
