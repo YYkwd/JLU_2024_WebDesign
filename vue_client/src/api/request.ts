@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ElMessage } from 'element-plus';
 const api = axios.create(
 	{ 
 		baseURL: "/api", //这里配置的是后端服务提供的接口
@@ -10,6 +11,35 @@ const api = axios.create(
 	}
 );
 
+// 响应拦截器
+api.interceptors.response.use(
+	(response) => {
+	  // 正常响应时的处理
+	  return response;
+	},
+	(error) => {
+	  // 处理错误响应
+	  if (error.response) {
+		const { status, data } = error.response;
+  
+		// 提取响应中的 code 和 msg
+		const { code, msg } = data;
+		// 根据 code 和 msg 做不同的处理
+		if (status === 401 || code === 401) {
+		  console.error('未授权错误，请登录');
+		  ElMessage.error(msg || '未授权，请登录后重试');
+		} else {
+		  console.error(`错误 ${code || status}：${msg}`);
+		  ElMessage.error(`错误：${msg || '请求失败，请稍后重试'}`);
+		}
+	  } else {
+		console.error('无法连接到服务器');
+		ElMessage.error('网络错误，请检查您的网络连接');
+	  }
+  
+	  return Promise.reject(error);
+	}
+  );
 //全局请求拦截
 //表示所有的网络请求都会先走这个方法
 //我们可以在它里面添加一些自定义的内容
