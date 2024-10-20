@@ -97,37 +97,72 @@ const router = createRouter({
                         name: 'CountControl',
                         component: () => import('../components/User/UserPage/CountControl.vue')
                     },
-                     //发布商品界面
+                    //发布商品界面
                     {
-                        path : 'goods_sell' ,
-                        name : 'GoodsSell' ,
-                        component : () => import('../components/User/UserPage/GoodsSell.vue')
+                        path: 'goods_sell',
+                        name: 'GoodsSell',
+                        component: () => import('../components/User/UserPage/GoodsSell.vue')
 
                     },
 
                     //我发布的商品界面
 
                     {
-                        path : 'goods_self' , 
-                        name : 'GoodsSelf' ,
-                        component : () => import('../components/User/UserPage/GoodsSelf.vue')
+                        path: 'goods_self',
+                        name: 'GoodsSelf',
+                        component: () => import('../components/User/UserPage/GoodsSelf.vue')
 
-                    },
-                    //订单
-                    {
-                        path : 'orders' ,
-                        name : 'Orders' , 
-                        component : () => import('../components/User/UserPage/Orders.vue')
                     },
 
                     //待售商品界面
                     {
-                        path : 'goods' ,
-                        name : 'MyGoods' ,
-                        component : () => import('../components/User/UserPage/Goods.vue')
-                    }
+                        path: 'goods',
+                        name: 'MyGoods',
+                        component: () => import('../components/User/UserPage/Goods.vue')
+                    },
 
-                    
+                    //处理卖出的订单的申诉
+
+                    {
+                        path: 'goods_appealed',
+                        name: 'GoodsAppealed',
+                        component: () => import('../components/User/UserPage/GoodsAppealed.vue')
+                    },
+
+                    //还未未配送的订单
+                    {
+                        path: 'orders_for_deliver',
+                        name: 'OrdersForDeliver',
+                        component: () => import('../components/User/UserPage/OrdersForDeliver.vue')
+                    },
+
+                    //正在配送的订单
+                    {
+                        path: 'orders_delivering',
+                        name: 'OrdersDelivering',
+                        component: () => import('../components/User/UserPage/OrdersDelivering.vue')
+                    },
+
+                    //已经送达的订单
+
+                    {
+                        path: 'orders_Delivered',
+                        name: 'OrdersDelivered',
+                        component: () => import('../components/User/UserPage/OrdersDelivered.vue')
+                    },
+                    //申诉中的订单
+                    {
+                        path: 'orders_appealing',
+                        name: 'OrdersAppealing',
+                        component: () => import('../components/User/UserPage/OrdersAppealing.vue')
+                    }
+                    ,
+                    //已经完成的订单
+                    {
+                        path: 'orders_accomplished',
+                        name: 'OrdersAccomplished',
+                        component: () => import('../components/User/UserPage/OrdersAccomplished.vue')
+                    }
                 ]
 
         },
@@ -158,21 +193,21 @@ const router = createRouter({
                         name: 'DeliverCountControl',
                         component: () => import('../components/Deliver/DeliverPage/CountControl.vue')
                     },
-                    
+
                     //待接单
 
                     {
-                        path : 'waited_deliver' ,
-                        name : 'WaitedDeliver' ,
+                        path: 'waited_deliver',
+                        name: 'WaitedDeliver',
                         component: () => import('../components/Deliver/DeliverPage/WaitedDeliver.vue')
                     },
-                        //配送
+                    //配送
                     {
-                        path : 'delivering' ,
-                        name : 'Delivering' ,
+                        path: 'delivering',
+                        name: 'Delivering',
                         component: () => import('../components/Deliver/DeliverPage/Delivering.vue')
                     }
-                    
+
                 ]
         },
         {
@@ -181,9 +216,9 @@ const router = createRouter({
             component: () => import('../components/Home.vue')
         },
         {
-                path: '/Goods',
-                name: 'Goods',
-                component: () => import('../components/Goods/Goods.vue')
+            path: '/Goods',
+            name: 'Goods',
+            component: () => import('../components/Goods/Goods.vue')
         }
 
 

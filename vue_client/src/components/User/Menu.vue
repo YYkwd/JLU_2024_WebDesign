@@ -43,8 +43,32 @@ const goToGoodsSelf = () => {
   router.push('/user_menu/goods_self')
 };
 
-const goToOrders = () => {
-  router.push('/user_menu/orders')
+//处理被申诉的订单
+const goToGoodsAppealed = () => {
+  router.push('/user_menu/goods_appealed')
+};
+//待配送订单展示
+const goToOrdersForDeliver = () => {
+  router.push('/user_menu/orders_for_deliver')
+};
+
+//正在配送中订单展示
+const goToOrdersDelivering = () => {
+  router.push('/user_menu/orders_delivering')
+};
+
+//已经送达的订单展示,用户点击已经确认
+const goToOrdersDelivered = () => {
+  router.push('/user_menu/orders_delivered')
+};
+//查看已经完成的订单
+const goToOrdersAccomplushed = () => {
+  router.push('/user_menu/orders_accomplished')
+};
+//申诉中的订单
+
+const goToOrdersAppealing= () => {
+  router.push('/user_menu/orders_appealing')
 };
 </script>
 
@@ -120,13 +144,53 @@ const goToOrders = () => {
                 
                 <span>我的商品</span>
             </el-menu-item>
+
+            <el-menu-item index="1-3" @click="goToGoodsAppealed()">
+                
+                <span>处理申诉</span>
+            </el-menu-item>
           </el-sub-menu>
 
+          <el-sub-menu index="4">
+              <template #title>
+                <el-icon><PhoneFilled /></el-icon>
+                  <span>购买商品订单管理</span>
+              </template>
 
-            <el-menu-item index="4" @click="goToOrders">
-              <el-icon><PhoneFilled /></el-icon>
-              <span>订单</span>
+            <el-menu-item index="1-1" @click="goToOrdersForDeliver()">
+                
+                <span>待配送</span>
             </el-menu-item>
+
+            <el-menu-item index="1-2" @click="goToOrdersDelivering()">
+                
+                <span>配送中</span>
+            </el-menu-item>
+
+            <el-menu-item index="1-4" @click="goToOrdersDelivered()">
+                
+                <span>已送达</span>
+            </el-menu-item>
+
+            <el-menu-item index="1-5" @click="goToOrdersAppealing()">
+                
+                <span>申诉中</span>
+            </el-menu-item>
+
+            <el-menu-item index="1-5" @click="goToOrdersAccomplushed()">
+                
+                <span>已完成</span>
+            </el-menu-item>
+            
+            <el-menu-item index="1-6" @click="goToOrdersAppealing()">
+                
+                <span>个人出售订单</span>
+            </el-menu-item>
+
+
+          </el-sub-menu>
+
+          
             
           </el-menu>
         </el-aside>
