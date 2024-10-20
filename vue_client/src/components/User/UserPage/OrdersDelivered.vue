@@ -19,7 +19,9 @@
           已送达 | 骑手: {{ item.deliverName }}
         </p>
         <el-button type="primary" @click="openConfirmDialog(item.id)">确认收货</el-button>
-        <el-button type="danger" @click="openAppealDialog(item.id)">申诉</el-button>
+        <el-button type="danger" @click="openAppealDialog(item.id)">商家申诉</el-button>
+        <el-button type="warning" @click="submitOfficialAppeal(item.id)">官方申诉</el-button>
+
       </el-card>
       
       <el-loading v-if="loadingMore" text="加载中..." />
@@ -225,6 +227,30 @@
         console.error('提交申诉失败：', error);
         ElMessage.error('提交申诉图片不能为空'); } };
       }
+
+      // 提交官方申诉功能
+const submitOfficialAppeal = async (orderId: number) => {
+  try {
+    // 调用 API 提交官方申诉，修改订单状态为 6
+    const response = await api.put(`/user/appealOfficial/${orderId}`, null, {
+      headers: {
+        authorization: UserStore.authorization,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    });
+
+    if (response.data.code === 200) {
+      ElMessage.success('已提交官方申诉');
+      fetchOrders(); // 重新获取订单列表
+    } else {
+      ElMessage.error('提交官方申诉失败');
+    }
+  } catch (error) {
+    console.error('提交官方申诉失败：', error);
+    ElMessage.error('提交官方申诉失败');
+  }
+};
+
 // 初始化加载订单 
 onMounted(() => { fetchOrders();  }); 
 </script>

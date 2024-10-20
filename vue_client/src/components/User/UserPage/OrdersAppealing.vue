@@ -24,7 +24,9 @@
         <p v-else-if="item.status === 5" style="color: blue; font-weight: bold; font-size: 16px; letter-spacing: 1px;">
           商家拒绝退款
         </p>
-
+        <p v-else-if="item.status === 6" style="color: blue; font-weight: bold; font-size: 16px; letter-spacing: 1px;">
+          官方申诉处理
+        </p>
         <p v-if="item.appealDescription" style="color: #808080; font-size: 14px;">
           申诉描述: {{ item.appealDescription }}
         </p>
@@ -82,7 +84,7 @@
       
       // 过滤 status 为 3 ，4 ，5的订单 // 获取申诉中的订单
         const filteredOrders = data.filter((order: OrderItem) => {
-                      return [3, 4, 5, ].includes(order.status);
+                      return [3, 4, 5, 6].includes(order.status);
           }); 
       console.log("申诉中的订单" ,filteredOrders );
       if (filteredOrders.length > 0) {

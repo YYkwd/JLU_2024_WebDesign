@@ -16,7 +16,7 @@
         <p>到达时间: {{ item.arriveTime }}</p>
         <p>创建时间: {{ item.createTime }}</p>
         <p style="color: #808080; font-weight: bold; font-size: 16px; letter-spacing: 1px;">
-          待配送
+          已完成
         </p>
       </el-card>
       
