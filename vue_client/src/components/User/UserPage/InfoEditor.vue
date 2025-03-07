@@ -100,7 +100,7 @@ const avatarUpload = async (option: any) => {
     });
     
     // 更新头像URL
-    userInfo.value.avatarurl = response.data.data;  // h后端返回的图片URL在 data 中
+    userInfo.value.avatarurl = response.data.data;  // 后端返回的图片URL在 data 中
     ElMessage.success('头像上传成功');
     option.onSuccess(response.data);  // 触发成功回调
 
